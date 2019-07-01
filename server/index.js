@@ -29,8 +29,15 @@ app.use(
 massive(CONNECTION_STRING).then((database) => {
     app.set('db', database)
     console.log('database set!', database.listTables())
-    app.listen(SERVER_PORT, () => console.log(`Port ${SERVER_PORT} is not screwed up`))
 })
 
-// Endpoints
+const server = app.listen(SERVER_PORT, () => console.log(`Port ${SERVER_PORT} is not screwed up`))
 
+// Auth Endpoints
+
+app.post('/auth/register', authCtrl.register)
+app.post('/auth/login', authCtrl.login)
+app.get('/auth/user', authCtrl.getUser)
+app.get('/auth/logout', authCtrl.logout)
+
+// Socket Endpoints
