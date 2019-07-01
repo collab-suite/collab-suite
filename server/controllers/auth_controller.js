@@ -40,7 +40,9 @@ module.exports = {
         if (authenticated) {
             session.user = {
                 id: userFound[0].user_id,
-                email: userFound[0].email
+                email: userFound[0].email,
+                firstName: userFound[0].first_name,
+                lastName: userFound[0].last_name
             }
             res.status(200).send(session.user)
         } else {
