@@ -1,0 +1,1 @@
+insert into messages (message, first_name, last_name, room_id) values (${message}, ${first_name}, ${last_name}, ${room_id});
