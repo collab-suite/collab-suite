@@ -10,7 +10,7 @@ const express = require('express'),
 const app = express()
 const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env
 
-// Middleware
+// Top Level Middleware
 
 app.use(express.json())
 app.use(
