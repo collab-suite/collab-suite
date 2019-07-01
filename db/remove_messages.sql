@@ -1,0 +1,1 @@
+delete from messages where room_id = ${roomID};
