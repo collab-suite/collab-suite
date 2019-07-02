@@ -1,9 +1,10 @@
 import React from 'react'
 import HomeStyles from './HomeStyles'
+import NavBar from '../NavBar/NavBar'
 
 function Home() {
     return (
-        <h1>Home</h1>
+        <NavBar />
     )
 }
 
