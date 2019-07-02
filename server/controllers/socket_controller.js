@@ -10,14 +10,18 @@ const SocketConnection = (server, app) => {
             const data = await db.select_messages({roomID: userInfo.roomID})
             io.to(userInfo.roomID).emit('joined room', data, userInfo)
         })
+        socket.on('leave room', (roomID) => {
+            socket.leave(roomID)
+            socket.disconnect()
+        })
         socket.on('message send', async (userInfo) => {
             await db.create_message({message: userInfo.message, first_name: userInfo.firstName, last_name: userInfo.lastName, room_id: userInfo.roomID})
             const data = await db.select_messages({roomID: userInfo.roomID})
-            io.to(userInfo.roomID).emit('message recieved', data, userInfo)
+            io.to(userInfo.roomID).emit('message recieved', data)
         })
         socket.on('end room', (userInfo) => {
             socket.leave(userInfo.roomID)
-            io.to(userInfo.roomID).emit('leave room')
+            io.to(userInfo.roomID).emit('end room')
         })
         socket.on('disconnect', () => {
             console.log('a user has left')

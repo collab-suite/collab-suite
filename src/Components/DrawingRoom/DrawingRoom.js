@@ -4,6 +4,7 @@ import Chat from './Chat/Chat'
 
 function DrawingRoom(props) {
     return (
+        //Put whiteboard Component Here
         <Chat socket={props.socket} />
     )
 }
