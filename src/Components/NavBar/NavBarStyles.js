@@ -11,6 +11,7 @@ export const NavBarHeader = styled.header`
 `
 export const NavBarOrganizer = styled.section`
     width: 80%;
+    height: 40%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,13 +21,23 @@ export const Logo = styled.img``
 
 export const ButtonHolder = styled.nav`
     height: 100%;
-    width: 20%;
+    width: 18%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
+
+export const ButtonHolderTwo = styled.nav`
+    height: 100%;
+    width: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
 export const NavButton = styled.button`
     height: 100%;
-    width: 30%;
-    border: 2px solid black;
+    width: 70px;
+    border: 1px solid black;
+    background: #fffffc;
 `

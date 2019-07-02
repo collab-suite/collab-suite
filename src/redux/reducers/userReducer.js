@@ -47,7 +47,7 @@ export const joinRoom = (roomID) => {
     }
 }
 
-export const resetReduxs = () => {
+export const resetRedux = () => {
     return {
         type: RESET
     }
