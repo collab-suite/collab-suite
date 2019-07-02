@@ -23,11 +23,11 @@ function NavBar(props){
                         <Styles.NavButton>Register</Styles.NavButton>
                     </Styles.ButtonHolder>
                     :
-                    <Styles.ButtonHolder>
+                    <Styles.ButtonHolderTwo>
                         <Styles.NavButton>Profile</Styles.NavButton>
                         <Styles.NavButton>Rooms</Styles.NavButton>
                         <Styles.NavButton onClick={logout}>Logout</Styles.NavButton>
-                    </Styles.ButtonHolder>
+                    </Styles.ButtonHolderTwo>
                 }
             </Styles.NavBarOrganizer>
         </Styles.NavBarHeader>
