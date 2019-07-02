@@ -6,8 +6,8 @@ function Chat(props) {
     const user = useSelector(reduxState => reduxState.user)
     const [messages, setMessages] = useState([])
     const [chatMessage, setChatMsg] = useState('')
+    const {socket} = props
     useEffect(() => {
-        const {socket} = props
         socket.emit('join room', user)
         socket.on('message recieved', messages => setMessages(messages))
         socket.on('joined room', )
