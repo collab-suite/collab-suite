@@ -16,8 +16,8 @@ function NavBar(props){
     return(
         <Styles.NavBarHeader>
             <Styles.NavBarOrganizer>
-                <Styles.Logo />
-                {user.email?
+                <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="" />
+                {!user.email?
                     <Styles.ButtonHolder>
                         <Styles.NavButton>Login</Styles.NavButton>
                         <Styles.NavButton>Register</Styles.NavButton>
