@@ -1,8 +1,36 @@
 import React from 'react'
+import * as Styles from './NavBarStyles'
+import {useSelector, useDispatch} from 'react-redux'
+import {resetRedux} from '../../redux/reducers/userReducer'
+import axios from 'axios'
 
-function NavBar(){
+function NavBar(props){
+    const user = useSelector(reduxState => reduxState.user)
+    const dispatch = useDispatch()
+    function logout(){
+        axios.get('/auth/logout')
+        .then(res => {
+            dispatch(resetRedux())
+        })
+    }
     return(
-        <h1>NavBar</h1>
+        <Styles.NavBarHeader>
+            <Styles.NavBarOrganizer>
+                <Styles.Logo />
+                {user.email?
+                    <Styles.ButtonHolder>
+                        <Styles.NavButton>Login</Styles.NavButton>
+                        <Styles.NavButton>Register</Styles.NavButton>
+                    </Styles.ButtonHolder>
+                    :
+                    <Styles.ButtonHolder>
+                        <Styles.NavButton>Profile</Styles.NavButton>
+                        <Styles.NavButton>Rooms</Styles.NavButton>
+                        <Styles.NavButton onClick={logout}>Logout</Styles.NavButton>
+                    </Styles.ButtonHolder>
+                }
+            </Styles.NavBarOrganizer>
+        </Styles.NavBarHeader>
     )
 }
 
