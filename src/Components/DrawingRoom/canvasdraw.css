@@ -12,11 +12,12 @@
 .viewport {
     width: 900px;
     height: 700px;
+    margin-bottom: 50px;
+
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 canvas {
@@ -26,8 +27,8 @@ canvas {
 
 .toolbox {
     margin-top: 25px;
-    width: 80%;
-    height: 100px;
+    width: 800px;
+    height: 50px;
     background: white;
     display: flex;
     justify-content: space-between;
@@ -35,7 +36,7 @@ canvas {
 }
 
 .tool {
-    width: 50%;
+    width: 400px;;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -48,4 +49,28 @@ canvas {
     align-items: center;
 }
 
+.shape {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
+}
+
+
+.attributes {
+    width: 300px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 75px;
+    margin-bottom: 5px;
+    background: white;
+}
+
+.attributes h2 {
+    margin-left: 15px;
+}

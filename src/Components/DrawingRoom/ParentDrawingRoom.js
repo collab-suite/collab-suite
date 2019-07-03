@@ -17,7 +17,7 @@ function ParentDrawingRoom(props) {
     return (
         <PageContainer >
             <CanvasHolder>
-                <Canvas />
+                <Canvas socket={socket} />
             </CanvasHolder>
             <ChatHolder>
                 <ChatRoom socket={socket} />
