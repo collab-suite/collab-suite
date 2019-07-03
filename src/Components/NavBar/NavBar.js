@@ -17,7 +17,7 @@ function NavBar(props){
         <Styles.NavBarHeader>
             <Styles.NavBarOrganizer>
                 
-                {user.email?
+                {!user.email?
                     <Styles.ButtonHolder>
                         <Styles.LineBeforeOne></Styles.LineBeforeOne>
                         <Styles.NavButton>Login</Styles.NavButton>

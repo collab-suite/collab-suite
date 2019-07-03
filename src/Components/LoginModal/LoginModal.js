@@ -25,12 +25,14 @@ function Login(){
     function alertLogin(swalIcon) {
         let alert = swal({
             content: (
-                <form onSubmit={handleSubmit}>
-                    <h1>Login</h1>
-                    <input placeholder='Email' type='email' required={true} onChange={e => setEmail(e.target.value)} />
-                    <input placeholder='Password' type='password' required={true} onChange={e => setPassword(e.target.value)} />
-                    <button >Login</button>
-                </form>
+                <Styles.ModalContainer>
+                    <Styles.LoginForm onSubmit={handleSubmit}>
+                        <Styles.LoginHeader>Login</Styles.LoginHeader>
+                        <Styles.LoginInput placeholder='Email' type='email' required={true} onChange={e => setEmail(e.target.value)} />
+                        <Styles.LoginInput placeholder='Password' type='password' required={true} onChange={e => setPassword(e.target.value)} />
+                        <Styles.LoginBtn>Login</Styles.LoginBtn>
+                    </Styles.LoginForm>
+                </Styles.ModalContainer>
             ),
             buttons: false,
             icon: swalIcon
