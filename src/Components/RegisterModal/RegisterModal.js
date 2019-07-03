@@ -20,8 +20,11 @@ function Register(){
             setEmail('')
             setPassword('')
         })
+        .catch(err => {
+            alertRegister('error')
+        })
     }
-    function alertRegister() {
+    function alertRegister(swalIcon) {
         let alert = swal({
             content: (
                 <form onSubmit={e => e.preventDefault()}>
@@ -56,12 +59,13 @@ function Register(){
                 <button onClick={handleSubmit}>Register</button>
             </form>
             ),
-            buttons: false
+            buttons: false,
+            icon: swalIcon
         })
         return alert
     }
     return(
-        <button onClick={alertRegister}>Register</button>
+        <button onClick={() => alertRegister('')}>Register</button>
     )
 }
 
