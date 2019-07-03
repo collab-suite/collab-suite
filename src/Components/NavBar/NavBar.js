@@ -22,7 +22,7 @@ function NavBar(props){
                 {!user.email?
                     <Styles.ButtonHolder>
                         <Styles.LineBeforeOne></Styles.LineBeforeOne>
-                        <LoginModal />
+                        <LoginModal openModal={props.openModal} closeModal={props.closeModal} />
                         <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
                         <RegisterModal />
                         <Styles.LineAfterOne></Styles.LineAfterOne>
