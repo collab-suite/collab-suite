@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Line, Rect, Circle} from './constructors'
+import {connect} from 'react-redux'
 import './canvasdraw.css'
 
 class CanvasDraw extends Component {
@@ -7,13 +8,19 @@ class CanvasDraw extends Component {
         super()
         this.state =  {
         isPainting: false,
-        tool: '',
-        color: '',
+        tools: {
+            fillStyle:'white',
+            strokeStyle:'black',
+            lineWidth: 5,
+            radius: 30,
+        },
         userStrokeStyle: '#F0C987',
         duplicateLastObj: {},
         newObj: {},
-        shape: false,
         shape: 'line',
+        shapeSize: false,
+        fillStyle: false,
+        strokeStyle: false,
         colorArray: [
               '#046975',
               '#2EA1D4',
@@ -26,22 +33,76 @@ class CanvasDraw extends Component {
     newObj = {}
     drawObj = []
 
-    updateShapeCircle = (e) => {
+    updateShape = (e) => {
         this.setState({
-            shape: 'circle'
+            shape: e.target.attributes.value.value
         })
+        if (e.target.attributes.value.value === 'circle' || e.target.attributes.value.value === 'line') {
+            this.setState({
+                shapeSize: true,
+                fillStyle: false,
+                strokeStyle: false
+            })
+        }
     }
-    updateShapeLine = (e) => {
+
+    updateShapeSize = (e) => {
+        console.log(this.state.shape,this.state.tools)
+        if (this.state.shape === 'circle') {
+            if (e.target.attributes.value.value === 'small'){
+                this.setState({
+                    tools: {
+                        radius: 10
+                    }
+                })
+            } else if (e.target.attributes.value.value === 'medium') {
+                this.setState({
+                    tools: {
+                        radius: 20
+                    }
+                })
+            } else if (e.target.attributes.value.value === 'large') {
+                this.setState({
+                    tools: {
+                        radius: 30
+                    }
+                })
+            }
+        } else if (this.state.shape ==='line') {
+            console.log(e.target.attributes)
+            if (e.target.attributes.value.value === 'small'){
+                this.setState({
+                    tools: {
+                        lineWidth: 2
+                    }
+                })
+            } else if (e.target.attributes.value.value === 'medium') {
+                this.setState({
+                    tools: {
+                        lineWidth: 5
+                    }
+                })
+            } else if (e.target.attributes.value.value === 'large') {
+                this.setState({
+                    tools: {
+                        lineWidth: 10
+                    }
+                })
+            }
+        }
         this.setState({
-            shape: 'line'
-        })
-    }
-    updateShapeRect = (e) => {
-        this.setState({
-            shape: 'rect'
+            shapeSize: false
         })
     }
 
+    updateColor = (e) => {
+        this.setState({
+            tools:{...this.state.tools,
+                [e.target.attributes.name.value]:e.target.attributes.value.value
+            }
+        })
+    }
+    
     updateToolPan  = (e) => {
         this.setState({
             tool: 'pan',
@@ -49,19 +110,20 @@ class CanvasDraw extends Component {
         })
     }
 
-
-    updateTool= (e) => {
+    updateFillStyle = (e) => {
         this.setState({
-            tool: e.target.name
+            fillStyle: true,
+            shapeSize: false,
+            strokeStyle: false,
         })
     }
-
-    updateColor = (e) => {
+    updateStrokeStyle = (e) => {
         this.setState({
-            color: e.target.name
+            strokeStyle: true,
+            shapeSize: false,
+            fillStyle: false
         })
     }
-
 
     componentDidMount = () => {
         this.canvas.width = 900
@@ -70,22 +132,23 @@ class CanvasDraw extends Component {
         this.c.lineJoin = 'round'
         this.c.lineCap = 'round'
         this.c.lineWidth = 2
+        this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
     }
 
     onMouseDown = ({nativeEvent}) => {
         const {offsetX: x, offsetY : y} = nativeEvent
         if (this.state.shape === 'line') {
-            const newLine = new Line(x,y,x,y)
+            const newLine = new Line(x,y,x,y, this.state.tools)
             this.newObj = newLine
         } else if (this.state.shape ==='rect') {
-            const newRect = new Rect(x,y,x,y)
+            const newRect = new Rect(x,y, this.state.tools)
             this.newObj = newRect
-    
         } else if (this.state.shape === 'circle') {
-            const newCircle = new Circle(x,y,30)
+            const newCircle = new Circle(x,y,this.state.tools.radius, this.state.tools)
             this.newObj = newCircle
             this.newObj.draw(this.c)
-        }        this.setState({
+        } 
+        this.setState({
             isPainting: true
         })
     }
@@ -98,8 +161,7 @@ class CanvasDraw extends Component {
             } else if (this.state.shape === 'circle') {
                 // const {x,y} = this.newObj
                 // const radius = (Math.sqrt((x - offsetX) ** 2 + (y - offsetY) ** 2))
-                let radius = 30
-                this.newObj.update(offsetX, offsetY,radius)
+                this.newObj.update(offsetX, offsetY)
             }
             this.c.clearRect(0,0,1000,1000)
             this.newObj.draw(this.c)
@@ -122,19 +184,19 @@ class CanvasDraw extends Component {
             this.newObj.update(offsetX,offsetY, 30)
         }
         this.drawObj.push(this.newObj)
+        this.props.socket.emit('drawObj',this.newObj,this.props.roomID)
         this.c.clearRect(0,0,1000,1000)
         this.newObj.draw(this.c)
         for (let i = 0; i < this.drawObj.length; i++) {
             this.drawObj[i].draw(this.c)
-
         }
-        
         this.setState({
             isPainting: false
         })
     }
 
     render() {
+        console.log(this.state.tools)
         return(
            <div className="pageContainer">
                <div className="viewport">
@@ -147,19 +209,42 @@ class CanvasDraw extends Component {
                        onMouseMove={this.onMouseMove}
                     />
                </div>
+               {this.state.shapeSize &&
+                        <div className="attributes">
+                            <h2 value='small' name="size" onClick= {this.updateShapeSize}>Small</h2>
+                            <h2 value='medium' name="size" onClick= {this.updateShapeSize}>Medium</h2>
+                            <h2 value='large' name="size" onClick= {this.updateShapeSize}>Large</h2>
+                        </div>
+                }
+                {(this.state.strokeStyle || this.state.fillStyle) &&
+                        <div className="attributes">
+                            <h2 value='blue' name="fillStyle" onClick= {this.updateColor}>Blue</h2>
+                            <h2 value='orange' name="fillStyle" onClick= {this.updateColor}>Orange</h2>
+                            <h2 value='green' name="fillStyle" onClick= {this.updateColor}>Green</h2>
+                        </div>
+                }
                <div className="toolbox">
+                   
                     <div className="shapePicker">
-                      <h2 name="circle" onClick={this.updateShapeCircle}>Circle</h2>
-                       <h2 name="line" onClick={this.updateShapeLine}>Line</h2>
-                       <h2 name="rect" onClick={this.updateShapeRect}>Rectangle</h2>
+                            <div className="shape">
+                                 <h2 value="circle" name="shape" onClick={this.updateShape}>Circle</h2>
+                                 <h2 value="line" name="shape" onClick={this.updateShape}>Line</h2>
+                                 <h2 value="rect" name="shape" onClick={this.updateShape}>Rectangle</h2>
+                            </div>
                    </div>
                    <div className="tool">
-                       <h2 name="marker" onClick={this.updateTool}>Marker</h2>
-                       <h2 name="pan" onClick={this.updateToolPan}>Pan</h2>
-                       <h2 name="delete" onClick={this.updateTool}>Delete</h2>
+                       <h2 value={!this.state.fillStyle} name="fillStyle" onClick={this.updateFillStyle}>Fill Color</h2>
+                       <h2 value={!this.state.strokeStyle}  name="strokeStyle" onClick={this.updateStrokeStyle}>Border</h2>
+                       <h2 value="delete" name="lineWidth" onClick={this.updateColor}>Delete</h2>
                    </div>
                </div>
            </div>
         )
     }
-} export default CanvasDraw
+}
+function mapStateToProps(state) {
+    return {
+        user:state.user
+    }
+}
+export default connect(mapStateToProps)(CanvasDraw)
