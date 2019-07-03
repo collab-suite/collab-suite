@@ -1,0 +1,1 @@
+select * from active_rooms where room_id = ${room_id}
