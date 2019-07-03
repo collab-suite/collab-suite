@@ -1,7 +1,10 @@
 import React from 'react'
 import io from 'socket.io-client'
 import {useSelector} from 'react-redux'
-import DrawingRoom from './DrawingRoom'
+import ChatRoom from './ChatRoom'
+import Canvas from './Canvas'
+import styled from 'styled-components'
+
 
 function ParentDrawingRoom(props) {
     const socket = io()
@@ -12,8 +15,38 @@ function ParentDrawingRoom(props) {
         props.history.push('/')
     })
     return (
-        <DrawingRoom socket={socket} />
+        <PageContainer >
+            <CanvasHolder>
+                <Canvas />
+            </CanvasHolder>
+            <ChatHolder>
+                <ChatRoom socket={socket} />
+            </ChatHolder>
+        </PageContainer>
+        
     )
 }
 
 export default ParentDrawingRoom
+
+const PageContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    background: red;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    `
+
+const CanvasHolder = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    `
+const ChatHolder = styled.div`
+    width: 400px;
+    height: 95%;
+    background: yellow;
+    `

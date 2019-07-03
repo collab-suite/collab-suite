@@ -1,0 +1,51 @@
+.pageContainer {
+    width: 100%;
+    min-height: 90%;
+    margin: 0px;
+    background: powderblue;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewport {
+    width: 900px;
+    height: 700px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+canvas {
+    overflow: scroll;
+    background: white;
+}
+
+.toolbox {
+    margin-top: 25px;
+    width: 80%;
+    height: 100px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tool {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.shapePicker {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
