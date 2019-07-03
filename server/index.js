@@ -6,6 +6,7 @@ const express = require('express'),
         massive = require('massive'),
         authCtrl = require('./controllers/auth_controller'),
         socketCtrl = require('./controllers/socket_controller')
+        roomCtrl = require('./controllers/room_controller')
 
 const app = express()
 const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env
@@ -39,5 +40,9 @@ app.post('/auth/register', authCtrl.register)
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/user', authCtrl.getUser)
 app.get('/auth/logout', authCtrl.logout)
+app.post('/rooms/join', roomCtrl.joinRoom)
+app.get('/room/create', roomCtrl.createRoom)
 
 // Socket Endpoints
+
+socketCtrl(server, app)

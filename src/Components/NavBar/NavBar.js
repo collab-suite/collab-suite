@@ -3,6 +3,8 @@ import * as Styles from './NavBarStyles'
 import {useSelector, useDispatch} from 'react-redux'
 import {resetRedux} from '../../redux/reducers/userReducer'
 import axios from 'axios'
+import LoginModal from '../LoginModal/LoginModal'
+import RegisterModal from '../RegisterModal/RegisterModal'
 
 function NavBar(props){
     const user = useSelector(reduxState => reduxState.user)
@@ -20,9 +22,9 @@ function NavBar(props){
                 {!user.email?
                     <Styles.ButtonHolder>
                         <Styles.LineBeforeOne></Styles.LineBeforeOne>
-                        <Styles.NavButton>Login</Styles.NavButton>
+                        <LoginModal />
                         <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
-                        <Styles.NavButton>Register</Styles.NavButton>
+                        <RegisterModal />
                         <Styles.LineAfterOne></Styles.LineAfterOne>
                     </Styles.ButtonHolder>
                     :

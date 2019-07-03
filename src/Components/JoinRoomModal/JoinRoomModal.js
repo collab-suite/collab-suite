@@ -7,19 +7,21 @@ function CreateRoomModal(){
 
     }
 
-    function alertJoin() {
+    function alertJoin(swalIcon) {
         let alert = swal({
             content: (
                 <form onSubmit={e => e.preventDefault()}>
                     <input />
                     <button onClick={joinRoom}>Join Room</button>
                 </form>
-            )
+            ),
+            buttons: false,
+            icon: swalIcon
         })
     }
     
     return (
-        <button>Join Room</button>
+        <button onClick={() => alertJoin('')}>Join Room</button>
     )
 }
 

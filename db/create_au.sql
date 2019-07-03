@@ -1,0 +1,1 @@
+insert into active_users (user_id, room_id) values (${user_id}, ${room_id})
