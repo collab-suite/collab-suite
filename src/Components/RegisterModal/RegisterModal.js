@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import {setName} from '../../redux/reducers/userReducer'
 import {useDispatch} from 'react-redux'
+import swal from '@sweetalert/with-react'
+import * as Styles from './RegisterModalStyles'
 
 function Register(){
     const [first_name, setFirstName] = useState('')
@@ -9,7 +11,6 @@ function Register(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
-
     function handleSubmit(){
         axios.post('/auth/register', {first_name, last_name, email, password})
         .then(res => {
@@ -20,15 +21,14 @@ function Register(){
             setPassword('')
         })
     }
-
-    return(
-        <div>
-            <form onSubmit={e => e.preventDefault()}>
+    function alertRegister() {
+        let alert = swal({
+            content: (
+                <form onSubmit={e => e.preventDefault()}>
                 <input
                     name='first name'
                     placeholder='first name'
                     type='text' 
-                    value={first_name}
                     required={true}
                     onChange={e => setFirstName(e.target.value)}
                 />
@@ -36,7 +36,6 @@ function Register(){
                     name='last name'
                     placeholder='last name'
                     type='text'
-                    value={last_name}
                     required={true} 
                     onChange={e => setLastName(e.target.value)}
                 />
@@ -44,7 +43,6 @@ function Register(){
                     name='email'
                     placeholder='email'
                     type='email' 
-                    value={email}
                     required={true}
                     onChange={e => setEmail(e.target.value)}
                 />
@@ -52,14 +50,18 @@ function Register(){
                     name='password'
                     placeholder='password'
                     type='password'
-                    value={password}
                     required={true} 
                     onChange={e => setPassword(e.target.value)}
                 />
                 <button onClick={handleSubmit}>Register</button>
             </form>
-            <button>x</button>
-        </div>
+            ),
+            buttons: false
+        })
+        return alert
+    }
+    return(
+        <button onClick={alertRegister}>Register</button>
     )
 }
 
