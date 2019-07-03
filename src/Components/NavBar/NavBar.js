@@ -16,17 +16,24 @@ function NavBar(props){
     return(
         <Styles.NavBarHeader>
             <Styles.NavBarOrganizer>
-                <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="" />
-                {!user.email?
+                
+                {user.email?
                     <Styles.ButtonHolder>
+                        <Styles.LineBeforeOne></Styles.LineBeforeOne>
                         <Styles.NavButton>Login</Styles.NavButton>
+                        <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
                         <Styles.NavButton>Register</Styles.NavButton>
+                        <Styles.LineAfterOne></Styles.LineAfterOne>
                     </Styles.ButtonHolder>
                     :
                     <Styles.ButtonHolderTwo>
-                        <Styles.NavButton>Profile</Styles.NavButton>
-                        <Styles.NavButton>Rooms</Styles.NavButton>
-                        <Styles.NavButton onClick={logout}>Logout</Styles.NavButton>
+                        <Styles.LineBeforeTwo></Styles.LineBeforeTwo>
+                        <Styles.NavButtonTwo>Profile</Styles.NavButtonTwo>
+                        <Styles.NavButtonTwo>Create Room</Styles.NavButtonTwo>
+                        <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
+                        <Styles.NavButtonTwo>Join Room</Styles.NavButtonTwo>
+                        <Styles.NavButtonTwo onClick={logout}>Logout</Styles.NavButtonTwo>
+                        <Styles.LineAfterTwo></Styles.LineAfterTwo>
                     </Styles.ButtonHolderTwo>
                 }
             </Styles.NavBarOrganizer>
