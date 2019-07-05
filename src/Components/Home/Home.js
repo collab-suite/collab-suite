@@ -18,14 +18,15 @@ function Home() {
         {modal?
             <div className="page" onClick={closeModal} >
                     <div className="page__demo" onClick={e => e.stopPropagation()}>
-                        <img className='login-logo' src={require('../../images/AllThinkLogo.png')} alt='' />
-                        <form>
+                        {/* <img className='login-logo' src={require('')} alt='' /> */}
+                        <form className='login-form'>
                             <label className="field a-field a-field_a1 page__field">
                                 <input 
                                     className="field__input a-field__input" 
                                     type="email" 
                                     placeholder="e.g. PeterIsAwesome@gmail.com"     
-                                    required={true} />
+                                    required={true} 
+                                />
                                 <span className="a-field__label-wrap">
                                     <span className="a-field__label">Email</span>
                                 </span>
@@ -35,7 +36,8 @@ function Home() {
                                     className="field__input a-field__input" 
                                     placeholder="e.g. Keep it secret, keep it safe" 
                                     required={true} 
-                                    type="password" />
+                                    type="password" 
+                                />
                                 <span className="a-field__label-wrap">
                                     <span className="a-field__label">Password</span>
                                 </span>

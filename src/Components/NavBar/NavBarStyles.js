@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 export const NavBarHeader = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 200px;
     background: #fffffc;
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
 `
 export const NavBarOrganizer = styled.div`
     display: flex;
@@ -71,16 +71,16 @@ export const NavButtonTwo = styled.button`
 
 export const LineBeforeOne = styled.div`
     height: 2px;
-    width: 30rem;
+    width: 20rem;
     background: #0FA3B1;
-    margin-right: 100px;
+    margin-right: 5vw;
 `
 
 export const LineAfterOne = styled.div`
     height: 2px;
-    width: 30rem;
+    width: 20rem;
     background: #0FA3B1;
-    margin-left: 100px;
+    margin-left: 5vw;
 `
 
 export const LineBeforeTwo = styled.div`
