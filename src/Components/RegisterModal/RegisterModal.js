@@ -37,36 +37,61 @@ function Register(){
     function alertRegister(swalIcon) {
         return swal({
             content: (
-                <form onSubmit={e => e.preventDefault()}>
-                    <input
-                        placeholder='first name'
-                        type='text' 
-                        required={true}
-                        onChange={changeName}
-                    />
-                    <input
-                        name='last name'
-                        placeholder='last name'
-                        type='text'
-                        required={true} 
-                        onChange={e => setLastName(e.target.value)}
-                    />
-                    <input
-                        name='email'
-                        placeholder='email'
-                        type='email' 
-                        required={true}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <input 
-                        name='password'
-                        placeholder='password'
-                        type='password'
-                        required={true} 
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    <button onClick={handleSubmit}>Register</button>
-                </form>
+                <div>
+                    <div>
+                        <form onSubmit={e => e.preventDefault()}>
+                            <label>
+                                <input
+                                    name='first name'
+                                    placeholder='e.g. Harry'
+                                    type='text' 
+                                    required={true}
+                                    onChange={e => setFirstName(e.target.value)}
+                                />
+                                <span>
+                                    <span>First Name</span>
+                                </span>
+                            </label>
+                            <label>
+                                <input
+                                    name='last name'
+                                    placeholder='e.g. Potter'
+                                    type='text'
+                                    required={true} 
+                                    onChange={e => setLastName(e.target.value)}
+                                />
+                                <span>
+                                    <span>Last Name</span>
+                                </span>
+                            </label>
+                            <label>
+                                <input
+                                    name='email'
+                                    placeholder='e.g. awesome@email.com'
+                                    type='email' 
+                                    required={true}
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                                <span>
+                                    <span>Email</span>
+                                </span>
+                            </label>
+                            <label>
+                                <input 
+                                    name='password'
+                                    placeholder='keep it secret, keep it safe'
+                                    type='password'
+                                    required={true} 
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                                <span>
+                                    <span>Password</span>
+                                </span>
+                            </label>
+                            <button onClick={handleSubmit}>Register</button>
+                        </form>
+                    </div>
+                </div>
             ),
             buttons: false,
             icon: swalIcon
