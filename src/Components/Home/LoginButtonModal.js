@@ -17,6 +17,7 @@ function LoginButtonModal(props) {
             dispatch(setName(res.data))
             setEmail('')
             setPassword('')
+            props.closeModal()
         })
         .catch(err => {
         })

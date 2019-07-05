@@ -1,7 +1,8 @@
 import React from 'react'
 import * as Styles from './NavBarStyles'
 import {useSelector, useDispatch} from 'react-redux'
-import {resetRedux} from '../../redux/reducers/userReducer'
+import {resetRedux, joinRoom} from '../../redux/reducers/userReducer'
+import {withRouter} from 'react-router-dom'
 import axios from 'axios'
 import LoginModal from '../LoginModal/LoginModal'
 import RegisterModal from '../RegisterModal/RegisterModal'
@@ -13,6 +14,13 @@ function NavBar(props){
         axios.get('/auth/logout')
         .then(res => {
             dispatch(resetRedux())
+        })
+    }
+    function createRoom() {
+        axios.get('/room/create')
+        .then(res => {
+            dispatch(joinRoom(res.data))
+            props.history.push('/draw')
         })
     }
     return(
@@ -31,7 +39,7 @@ function NavBar(props){
                     <Styles.ButtonHolderTwo>
                         <Styles.LineBeforeTwo></Styles.LineBeforeTwo>
                         <Styles.NavButtonTwo>Profile</Styles.NavButtonTwo>
-                        <Styles.NavButtonTwo>Create Room</Styles.NavButtonTwo>
+                        <Styles.NavButtonTwo onClick={createRoom}>Create Room</Styles.NavButtonTwo>
                         <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
                         <Styles.NavButtonTwo>Join Room</Styles.NavButtonTwo>
                         <Styles.NavButtonTwo onClick={logout}>Logout</Styles.NavButtonTwo>
@@ -43,4 +51,4 @@ function NavBar(props){
     )
 }
 
-export default NavBar
+export default withRouter(NavBar)

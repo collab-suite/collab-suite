@@ -1,13 +1,18 @@
 const socket = require('socket.io')
 
 const SocketConnection = (server, app) => {
-    const db = app.get('db')
     const io = socket(server)
     io.on('connection', (socket) => {
+        const db = app.get('db')
         console.log('a user has connected')
         socket.on('join room', async (userInfo) => {
+            console.log('here')
+            console.log(userInfo)
             socket.join(userInfo.roomID)
-            const users = await db.get_au({room_id: userInfo.roomID})
+            const room = await db.check_room({room_id: userInfo.roomID})
+            console.log(room)
+            await db.create_au({user_id: userInfo.id, room_id: room[0].ar_id})
+            const users = await db.get_au({room_id: room[0].ar_id})
             const data = await db.select_messages({roomID: userInfo.roomID})
             io.to(userInfo.roomID).emit('joined room', data, users)
         })

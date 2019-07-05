@@ -1,1 +1,1 @@
-insert into active_rooms (room_id) values (${room_id})
+insert into active_rooms (room_id) values (${room_id});
