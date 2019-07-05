@@ -3,6 +3,7 @@ import axios from 'axios'
 import {useDispatch} from 'react-redux'
 import {setName} from '../../redux/reducers/userReducer'
 import '../LoginModal/LoginModal.css'
+import Logo from '../../images/AllThinkLogo.png'
 
 function LoginButtonModal(props) {
     const dispatch = useDispatch()
@@ -25,16 +26,30 @@ function LoginButtonModal(props) {
     return (
         <div className="page" onClick={props.closeModal} >
             <div className="page__demo" onClick={e => e.stopPropagation()}>
-                <img className='login-logo' src={require('../../images/AllThinkLogo.png')} alt='' />
-                <form onSubmit={e => e.preventDefault()}>
-                    <label className="field a-field a-field_a1 page__field">
-                        <input className="field__input a-field__input" type="email" placeholder="e.g. PeterIsAwesome@gmail.com" required={true} value={email} onChange={e => setEmail(e.target.value)} />
+                <img src={Logo} className='login-logo' alt='' height='100' width='120' />
+                <form className='login-form' onSubmit={e => e.preventDefault()}>
+                    <label className="field a-field a-field_a2 page__field">
+                        <input 
+                            className="field__input a-field__input" 
+                            type="email" 
+                            placeholder="e.g. PeterIsAwesome@gmail.com" 
+                            required={true} 
+                            value={email} 
+                            onChange={e => setEmail(e.target.value)} 
+                        />
                         <span className="a-field__label-wrap">
                             <span className="a-field__label">Email</span>
                         </span>
                     </label>
                     <label className="field a-field a-field_a2 page__field">
-                        <input className="field__input a-field__input" placeholder="e.g. Keep it secret, keep it safe" required={true} type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input 
+                            className="field__input a-field__input" 
+                            placeholder="e.g. Keep it secret, keep it safe" 
+                            required={true} 
+                            type="password" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)} 
+                        />
                         <span className="a-field__label-wrap">
                             <span className="a-field__label">Password</span>
                         </span>
