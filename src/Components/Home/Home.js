@@ -17,7 +17,7 @@ function Home() {
         <>
         <NavBar openModal={openModal} closeModal={closeModal} />
         {modal?
-                <Login closeModal={closeModal} />
+          <Login closeModal={closeModal} />
                 :
                 null
         }
