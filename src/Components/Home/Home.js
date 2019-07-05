@@ -21,13 +21,21 @@ function Home() {
                         <img className='login-logo' src={require('../../images/AllThinkLogo.png')} alt='' />
                         <form>
                             <label className="field a-field a-field_a1 page__field">
-                                <input className="field__input a-field__input" type="email" placeholder="e.g. PeterIsAwesome@gmail.com" required={true} />
+                                <input 
+                                    className="field__input a-field__input" 
+                                    type="email" 
+                                    placeholder="e.g. PeterIsAwesome@gmail.com"     
+                                    required={true} />
                                 <span className="a-field__label-wrap">
                                     <span className="a-field__label">Email</span>
                                 </span>
                             </label>
                             <label className="field a-field a-field_a2 page__field">
-                                <input className="field__input a-field__input" placeholder="e.g. Keep it secret, keep it safe" required={true} type="password" />
+                                <input 
+                                    className="field__input a-field__input" 
+                                    placeholder="e.g. Keep it secret, keep it safe" 
+                                    required={true} 
+                                    type="password" />
                                 <span className="a-field__label-wrap">
                                     <span className="a-field__label">Password</span>
                                 </span>
