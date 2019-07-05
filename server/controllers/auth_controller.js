@@ -13,26 +13,25 @@ module.exports = {
         console.log(`last_name is ${last_name}`)
         console.log(`email is ${email}`)
         console.log(`password is ${password}`)
-        // const db = req.app.get('db')
-        // const {session} = req
-        // const userFound = await db.check_user({email})
-        // if (userFound[0]) return res.status(409).send('User already exists')
-        // const salt = bcrypt.genSaltSync(10)
-        // const hash = bcrypt.hashSync(password, salt)
-        // const createdUser = await db.register_user({
-        //     first_name,
-        //     last_name,
-        //     email,
-        //     password: hash
-        // })
-        // session.user = {
-        //     id: createdUser[0].user_id,
-        //     firstName: createdUser[0].first_name,
-        //     lastName: createdUser[0].last_name,
-        //     email: createdUser[0].email
-        // }
-        // res.status(200).send(session.user)
-        res.status(200).send('registered')
+        const db = req.app.get('db')
+        const {session} = req
+        const userFound = await db.check_user({email})
+        if (userFound[0]) return res.status(409).send('User already exists')
+        const salt = bcrypt.genSaltSync(10)
+        const hash = bcrypt.hashSync(password, salt)
+        const createdUser = await db.register_user({
+            first_name,
+            last_name,
+            email,
+            password: hash
+        })
+        session.user = {
+            id: createdUser[0].user_id,
+            firstName: createdUser[0].first_name,
+            lastName: createdUser[0].last_name,
+            email: createdUser[0].email
+        }
+        res.status(200).send(session.user)
     },
 
     login: async (req, res) => {
