@@ -3,9 +3,11 @@ import HomeStyles from './HomeStyles'
 import NavBar from '../NavBar/NavBar'
 import '../LoginModal/LoginModal.css'
 import Login from './LoginButtonModal'
+import Reg from '../RegisterModal/RegisterModal'
 
 function Home() {
     const [modal, setModal] = useState(false)
+    const [regModal, setRegModal] = useState(false)
     function openModal() {
         setModal(true)
     }
@@ -13,13 +15,25 @@ function Home() {
     function closeModal() {
         setModal(false)
     }
+
+    function openRegModal() {
+        setRegModal(true)
+    }
+    function closeRegModal() {
+        setRegModal(false)
+    }
     return (
         <>
-        <NavBar openModal={openModal} closeModal={closeModal} />
+        <NavBar openModal={openModal} closeModal={closeModal} openRegModal={openRegModal} closeRegModal={closeRegModal} />
         {modal?
           <Login closeModal={closeModal} />
                 :
                 null
+        }
+        {regModal?
+            <Reg closeRegModal={closeRegModal} />
+            :
+            null
         }
         </>
     )

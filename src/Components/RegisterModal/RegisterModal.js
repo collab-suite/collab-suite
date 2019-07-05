@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux'
 import swal from '@sweetalert/with-react'
 import * as Styles from './RegisterModalStyles'
 
-function Register(){
+function Register(props){
     const [name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -18,8 +18,6 @@ function Register(){
         console.log(password)
         axios.post('/auth/register', {name, last_name, email, password})
         .then(res => {
-            console.log(swal.getState())
-            swal.close()
             dispatch(setName(res.data))
             setFirstName('')
             setLastName('')
@@ -27,17 +25,14 @@ function Register(){
             setPassword('')
         })
         .catch(err => {
-            alertRegister('error')
         })
     }
     function changeName(name) {
         console.log(name.target.value)
         setFirstName(name.target.value)
     }
-    function alertRegister(swalIcon) {
-        return swal({
-            content: (
-                <div>
+    return(
+        <div onClick={props.closeRegModal}>
                     <div>
                         <form onSubmit={e => e.preventDefault()}>
                             <label>
@@ -92,13 +87,6 @@ function Register(){
                         </form>
                     </div>
                 </div>
-            ),
-            buttons: false,
-            icon: swalIcon
-        })
-    }
-    return(
-        <button onClick={() => alertRegister('')}>Register</button>
     )
 }
 
