@@ -10,8 +10,11 @@ function Chat(props) {
     useEffect(() => {
         socket.emit('join room', user)
         socket.on('message recieved', messages => setMessages(messages))
-        socket.on('joined room', )
-    })
+        socket.on('joined room', () => {
+            console.log('hello')
+        })
+        
+    }, [])
     function handleSendMessage() {
         let userInfo = {
             message: chatMessage,
@@ -20,11 +23,12 @@ function Chat(props) {
             roomID: user.roomID
         }
         socket.emit('message send', userInfo)
+        setChatMsg('')
     }
     const messageDisplay = messages.map((ele, i) => {
         return (
             <Message key={i}>
-                <Name>{ele.firstName} {ele.lastName}: </Name>
+                <Name>{ele.first_name} {ele.last_name.charAt(0)}: </Name>
                 <MessageText>{ele.message}</MessageText>
             </Message>
         )

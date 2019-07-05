@@ -5,7 +5,7 @@ const express = require('express'),
         session = require('express-session'),
         massive = require('massive'),
         authCtrl = require('./controllers/auth_controller'),
-        socketCtrl = require('./controllers/socket_controller')
+        socketConnection = require('./controllers/socket_controller')
         roomCtrl = require('./controllers/room_controller')
 
 const app = express()
@@ -45,4 +45,4 @@ app.get('/room/create', roomCtrl.createRoom)
 
 // Socket Endpoints
 
-socketCtrl(server, app)
+socketConnection(server, app)
