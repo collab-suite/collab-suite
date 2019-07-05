@@ -6,8 +6,6 @@ const SocketConnection = (server, app) => {
         const db = app.get('db')
         console.log('a user has connected')
         socket.on('join room', async (userInfo) => {
-            console.log('here')
-            console.log(userInfo)
             socket.join(userInfo.roomID)
             const room = await db.check_room({room_id: userInfo.roomID})
             console.log(room)

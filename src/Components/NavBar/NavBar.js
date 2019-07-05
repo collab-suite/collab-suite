@@ -32,7 +32,7 @@ function NavBar(props){
                         <Styles.LineBeforeOne></Styles.LineBeforeOne>
                         <LoginModal openModal={props.openModal} closeModal={props.closeModal} />
                         <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
-                        <RegisterModal />
+                        <button onClick={props.openRegModal}>Register</button>
                         <Styles.LineAfterOne></Styles.LineAfterOne>
                     </Styles.ButtonHolder>
                     :
