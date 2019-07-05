@@ -7,25 +7,29 @@ import styled from 'styled-components'
 
 
 function ParentDrawingRoom(props) {
-    const socket = io()
-    const user = useSelector(reduxState => reduxState.user)
-    socket.on('end room', () => {
-        socket.emit('leave room', user.roomID)
-        window.alert('Host has closed the room')
-        props.history.push('/')
-    })
+    // const socket = io()
+    // const user = useSelector(reduxState => reduxState.user)
+    // socket.on('end room', () => {
+    //     socket.emit('leave room', user.roomID)
+    //     window.alert('Host has closed the room')
+    //     props.history.push('/')
+    
+
     return (
         <PageContainer >
             <CanvasHolder>
-                <Canvas socket={socket} />
+                <Canvas />
+                {/* <Canvas socket={socket} /> */}
             </CanvasHolder>
             <ChatHolder>
-                <ChatRoom socket={socket} />
+                <ChatRoom  />
+                {/* <ChatRoom socket={socket} /> */}
             </ChatHolder>
         </PageContainer>
         
     )
 }
+
 
 export default ParentDrawingRoom
 
