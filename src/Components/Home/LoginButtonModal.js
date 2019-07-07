@@ -25,7 +25,6 @@ function LoginButtonModal(props) {
     return (
         <div className="page" onClick={props.closeModal} >
             <div className="page__demo" onClick={e => e.stopPropagation()}>
-                <img className='login-logo' src={require('../../images/AllThinkLogo.png')} alt='' />
                 <form onSubmit={e => e.preventDefault()}>
                     <label className="field a-field a-field_a1 page__field">
                         <input className="field__input a-field__input" type="email" placeholder="e.g. PeterIsAwesome@gmail.com" required={true} value={email} onChange={e => setEmail(e.target.value)} />

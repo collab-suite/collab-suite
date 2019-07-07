@@ -26,12 +26,12 @@ function Home() {
         <>
         <NavBar openModal={openModal} closeModal={closeModal} openRegModal={openRegModal} closeRegModal={closeRegModal} />
         {modal?
-          <Login closeModal={closeModal} />
+          <Login onClick={e => e.stopPropagation()} closeModal={closeModal} />
                 :
                 null
         }
         {regModal?
-            <Reg closeRegModal={closeRegModal} />
+            <Reg onClick={e => e.stopPropagation()} closeRegModal={closeRegModal} />
             :
             null
         }
