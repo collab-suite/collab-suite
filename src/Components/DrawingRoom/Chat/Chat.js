@@ -45,10 +45,12 @@ function Chat(props) {
     }
     const messageDisplay = messages.map((ele, i) => {
         return (
-            <li className='msg' key={i}>
-                <h4 className='msg-header'>{ele.first_name} {ele.last_name.charAt(0)}: </h4>
-                <p className='msg-text'>{ele.message}</p>
-            </li>
+            <>
+                <h4 className='msg-header'>{ele.first_name} {ele.last_name.charAt(0)} </h4>
+                <li className='msg u1' key={i}>
+                    <p className='msg-text'>{ele.message}</p>
+                </li>
+            </>
         )
     })
     return (

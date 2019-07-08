@@ -155,7 +155,7 @@ class CanvasDraw extends Component {
         this.c.lineJoin = 'round'
         this.c.lineCap = 'round'
         this.c.lineWidth = 2
-        this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
+        // this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
     }
 
     onMouseDown = ({nativeEvent}) => {
