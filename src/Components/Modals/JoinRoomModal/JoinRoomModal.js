@@ -13,14 +13,14 @@ function JoinRoomModal(props){
         props.history.push('/draw')
     }
     return (
-        <div className='page'>
+        <div className='page' onClick={props.closeRoomModal}>
             <div onClick={e => e.stopPropagation()}>
                 <form className='room-container' onSubmit={e => handleJoin(e)}>
                     <h1 className='room-header'>What do you need?</h1>
                     <label className='field-number a-field-number a-field_a2-number page__field-number'>
                         <input
                             className='field__input-number a-field__input-number'
-                            type='number' 
+                            type='text' 
                             placeholder='e.g. 011235813' 
                             required={true}
                             value={roomID} 
