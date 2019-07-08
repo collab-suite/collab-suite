@@ -14,10 +14,12 @@ function JoinRoomModal(props){
     }
     return (
         <div className='page'>
-            <div className='page__demo' onClick={e => e.stopPropagation()}>
+            <div className='room-container' onClick={e => e.stopPropagation()}>
                 <form onSubmit={e => handleJoin(e)}>
+                    <h1 className='room-header'>What do you need?</h1>
                     <input placeholder='Room ID' value={roomID} onChange={e => setRoomID(e.target.value)} />
-                    <button>Join Room</button>
+                    <button className='room-btn'>Create Room</button>
+                    <button className='room-btn'>Join Room</button>
                 </form>
             </div>
         </div>

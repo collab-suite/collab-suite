@@ -1,0 +1,50 @@
+/* General Setup */
+
+* {
+    margin: 0;
+}
+
+.room-container {
+    height: 50vh;
+    width: 40%;
+    background: #fffffc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+/* Header */
+
+.room-header {
+    color: #0FA3B1;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    margin-top: -10vh;
+    margin-bottom: 17vh;
+}
+
+/* Button */
+
+.room-btn {
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    color: #0FA3B1;
+    font-size: 20px;
+    background: #fffffc;
+    padding: 5px 10px;
+    border: solid #0FA3B1 1.5px;
+    text-decoration: none;
+    margin: 0 2vw;
+    outline: none;
+}
+
+.room-btn:hover {
+    background: #0FA3B1;
+    color: #fffffc;
+    border-color: #fffffc;
+    text-decoration: none;
+}

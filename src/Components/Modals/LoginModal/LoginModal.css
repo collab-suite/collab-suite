@@ -199,29 +199,51 @@
   --fieldBorderColorActive: #0FA3B1;
 }
 
-/* Button */
+/* Buttons */
 
-.login-modal-btn {
+.login-btn {
   -webkit-border-radius: 5;
   -moz-border-radius: 5;
-  border-radius: 5px;
+  border-radius: 50px;
   font-family: 'Roboto', sans-serif;
   color: #0FA3B1;
   font-size: 20px;
   background: #fffffc;
-  padding: 5px 10px;
+  padding: 10px 30px;
+  text-transform: uppercase;
   border: solid #0FA3B1 1.5px;
   text-decoration: none;
   outline: none;
-  margin-top: 12vh;
-  margin-left: 100px;
+}
+
+.login-btn:hover {
+  background: #0FA3B1;
+  color: #fffffc;
+  border-color: #0FA3B1;
+  text-decoration: none;
+}
+
+.login-modal-btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 50px;
+  font-family: 'Roboto', sans-serif;
+  color: #0FA3B1;
+  font-size: 20px;
+  background: #fffffc;
+  padding: 10px 30px;
+  border: solid #0FA3B1 1.5px;
+  text-decoration: none;
+  outline: none;
+  margin-top: 70px;
+  margin-left: 90px;
   margin-bottom: -10vh;
-  width: 30%;
+  width: 40%;
 }
 
 .login-modal-btn:hover {
   background: #0FA3B1;
   color: #fffffc;
-  border-color: #fffffc;
+  border-color: #0FA3B1;
   text-decoration: none;
 }

@@ -15,7 +15,7 @@ export const NavBarOrganizer = styled.div`
 
 export const Logo = styled.img` 
     transform: scale(.27);
-    margin: 0 -9%;
+    margin: 0 -10%;
 `
 
 export const ButtonHolder = styled.div`
@@ -33,18 +33,20 @@ export const ButtonHolderTwo = styled.div`
 export const NavButton = styled.button`
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
-    border-radius: 5px;
-    font-family: Arial;
+    border-radius: 50px;
+    font-family: Roboto, sans-serif;
+    text-transform: uppercase;
     color: #0FA3B1;
     font-size: 20px;
     background: #fffffc;
-    padding: 5px 10px;
+    padding: 10px 30px;
     border: solid #0FA3B1 1.5px;
     text-decoration: none;
+    outline: none;
     &:hover {
         background: #0FA3B1;
         color: #fffffc;
-        border-color: #fffffc;
+        border-color: #0FA3B1;
         text-decoration: none;
     }
 `
@@ -52,19 +54,21 @@ export const NavButton = styled.button`
 export const NavButtonTwo = styled.button`
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
-    border-radius: 5px;
-    font-family: Arial;
+    border-radius: 50px;
+    font-family: Roboto, sans-serif;
     color: #0FA3B1;
     font-size: 20px;
     background: #fffffc;
-    margin: .5%;
-    padding: 5px 10px;
+    text-transform: uppercase;
+    margin: 20px;
+    padding: 10px 30px;
     border: solid #0FA3B1 1.5px;
     text-decoration: none;
+    outline: none;
     &:hover {
         background: #0FA3B1;
         color: #fffffc;
-        border-color: #fffffc;
+        border-color: #0FA3B1;
         text-decoration: none;
     }
 `
@@ -73,26 +77,26 @@ export const LineBeforeOne = styled.div`
     height: 2px;
     width: 20rem;
     background: #0FA3B1;
-    margin-right: 5vw;
+    margin-right: 50px;
 `
 
 export const LineAfterOne = styled.div`
     height: 2px;
     width: 20rem;
     background: #0FA3B1;
-    margin-left: 5vw;
+    margin-left: 50px;
 `
 
 export const LineBeforeTwo = styled.div`
     height: 2px;
     width: 20rem;
     background: #0FA3B1;
-    margin-right: 80px;
+    margin-right: 50px;
 `
 
 export const LineAfterTwo = styled.div`
     height: 2px;
     width: 20rem;
     background: #0FA3B1;
-    margin-left: 80px;
+    margin-left: 50px;
 `
