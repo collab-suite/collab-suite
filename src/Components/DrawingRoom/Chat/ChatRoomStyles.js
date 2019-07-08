@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
-export const ChatContainer = styled.div``
+export const ChatContainer = styled.div`
+    height: 10%;
+    width: 40%;
+`
 
 export const ChatRoom = styled.ul`
     list-style: none;
@@ -22,12 +25,18 @@ export const MessageText = styled.p`
     margin: 0;
     display: flex;
     max-width: 70%;
-
 `
 
 
-export const MessageForm = styled.form``
+export const MessageForm = styled.form`
 
-export const ChatInput = styled.input``
+`
 
-export const SendMessage = styled.button``
+export const ChatInput = styled.input`
+    border: none;
+    outline: none;
+`
+
+export const SendMessage = styled.button`
+
+`

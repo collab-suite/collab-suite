@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {ChatContainer, ChatRoom, Message, MessageForm, ChatInput, SendMessage, Name, MessageText} from './ChatRoomStyles'
 import swal from '@sweetalert/with-react'
+import './ChatRoom.css'
 
 function Chat(props) {
     const user = useSelector(reduxState => reduxState.user)
@@ -45,24 +45,27 @@ function Chat(props) {
     }
     const messageDisplay = messages.map((ele, i) => {
         return (
-            <Message key={i}>
-                <Name>{ele.first_name} {ele.last_name.charAt(0)}: </Name>
-                <MessageText>{ele.message}</MessageText>
-            </Message>
+            <li className='msg' key={i}>
+                <h4 className='msg-header'>{ele.first_name} {ele.last_name.charAt(0)}: </h4>
+                <p className='msg-text'>{ele.message}</p>
+            </li>
         )
     })
     return (
-        <ChatContainer>
-            <button onClick={showOnline}>Show users in room</button>
-            <button onClick={showLink}>Join Link</button>
-            <ChatRoom>
+        <div className='chat-container'>
+            <div className='join-room-btn-container'>
+                <button onClick={showLink} className='join-room-btn'>Join Room</button>
+            </div>
+            <ul className='dialogue'>
                 {messageDisplay}
-            </ChatRoom>
-            <MessageForm onSubmit={e => e.preventDefault()}>
-                <ChatInput value={chatMessage} onChange={e => setChatMsg(e.target.value)} />
-                <SendMessage onClick={handleSendMessage}>Send Message</SendMessage>
-            </MessageForm>
-        </ChatContainer>
+            </ul>
+            <div className='msg-form-container'>
+                <form className='msg-form' onSubmit={e => e.preventDefault()}>
+                    <input className='msg-input' value={chatMessage} onChange={e => setChatMsg(e.target.value)} />
+                    <button className='msg-btn' onClick={handleSendMessage}>Send</button>
+                </form>
+            </div>
+        </div>
     )
 }
 
