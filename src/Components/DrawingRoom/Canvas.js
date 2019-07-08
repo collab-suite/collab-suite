@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Line, Rect, Circle, FreeDraw} from './constructors'
 import { SketchPicker, SwatchesPicker } from 'react-color'
+import {connect} from 'react-redux'
 import './canvasdraw.css'
 
 class CanvasDraw extends Component {
@@ -154,7 +155,7 @@ class CanvasDraw extends Component {
         this.c.lineJoin = 'round'
         this.c.lineCap = 'round'
         this.c.lineWidth = 2
-        // this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
+        this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
     }
 
     onMouseDown = ({nativeEvent}) => {
@@ -214,7 +215,7 @@ class CanvasDraw extends Component {
                 this.newObj.update(offsetX,offsetY, 30)
             }
             this.drawObj.push(this.newObj)
-            // this.props.socket.emit('drawObj',this.newObj,this.props.roomID)
+            this.props.socket.emit('drawObj',this.newObj,this.props.roomID)
             this.c.clearRect(0,0,1000,1000)
             this.newObj.draw(this.c)
             for (let i = 0; i < this.drawObj.length; i++) {
@@ -283,7 +284,7 @@ class CanvasDraw extends Component {
 
 
     render() {
-        console.log(this.state.editObj)
+        console.log(this.props)
         return(
            <div className="pageContainer">
                <div className="viewport">
@@ -351,4 +352,10 @@ class CanvasDraw extends Component {
     }
 }
 
-export default CanvasDraw
+function mapStateToProps(state) {
+    return{
+        user:state.user
+    }
+}
+
+export default connect(mapStateToProps, )(CanvasDraw)
