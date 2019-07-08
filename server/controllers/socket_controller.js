@@ -10,8 +10,12 @@ const SocketConnection = (server, app) => {
             const room = await db.check_room({room_id: userInfo.roomID})
             await db.create_au({user_id: userInfo.id, room_id: room[0].ar_id})
             const users = await db.get_au({room_id: room[0].ar_id})
-            const data = await db.select_messages({roomID: userInfo.roomID})
+            console.log(users)
+            const data = await db.select_messages({room_id: userInfo.roomID})
             io.to(userInfo.roomID).emit('joined room', data, users)
+        })
+        socket.on('drawObj', (newObj, roomID) => {
+            io.to(roomID).emit('drawObj', newObj)
         })
         socket.on('leave room', async (userInfo) => {
             socket.leave(userInfo.roomID)
