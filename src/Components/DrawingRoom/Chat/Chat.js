@@ -6,20 +6,38 @@ import swal from '@sweetalert/with-react'
 function Chat(props) {
     const user = useSelector(reduxState => reduxState.user)
     const [messages, setMessages] = useState([])
+    const [usersDisp, setUsersDisp] = useState([])
     const [chatMessage, setChatMsg] = useState('')
     const {socket} = props
+    const onlineUsers = usersDisp.map((ele, i) => {
+        return (
+            <li key={i}>{ele.first_name} {ele.last_name.charAt(0)}</li>
+        )
+    })
     useEffect(() => {
         socket.emit('join room', user)
         socket.on('message recieved', messages => setMessages(messages))
-        socket.on('joined room', () => {
-            console.log('hello')
+        socket.on('joined room', (data, users) => {
+            setUsersDisp(users)
         })
-        return socket.emit('leave room', user)
+        return cleanUp
     }, [])
+    function cleanUp () {
+        socket.emit('leave room', user)
+    }
     function showLink() {
         return swal({
             content: (
                 <h4>{user.roomID}</h4>
+            )
+        })
+    }
+    function showOnline() {
+        return swal({
+            content: (
+                <ul>
+                    {onlineUsers}
+                </ul>
             )
         })
     }
@@ -43,6 +61,7 @@ function Chat(props) {
     })
     return (
         <ChatContainer>
+            <button onClick={showOnline}>Show users in room</button>
             <button onClick={showLink}>Join Link</button>
             <ChatRoom>
                 {messageDisplay}
