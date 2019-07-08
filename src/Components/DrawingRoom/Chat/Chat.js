@@ -15,16 +15,8 @@ function Chat(props) {
         )
     })
     useEffect(() => {
-        socket.emit('join room', user)
         socket.on('message recieved', messages => setMessages(messages))
-        socket.on('joined room', (data, users) => {
-            setUsersDisp(users)
-        })
-        return cleanUp
     }, [])
-    function cleanUp () {
-        socket.emit('leave room', user)
-    }
     function showLink() {
         return swal({
             content: (
