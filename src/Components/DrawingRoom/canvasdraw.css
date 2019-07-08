@@ -104,8 +104,9 @@ canvas {
     align-items: center;
     width: 100%;
 }
+
 .tool {
-    width: 400px;;
+    width: 400px;
     display: flex;
     justify-content: space-around;
     align-items: center;

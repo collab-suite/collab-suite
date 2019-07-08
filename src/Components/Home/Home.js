@@ -43,7 +43,7 @@ function Home() {
             null
         }
         {roomModal?
-            <JoinRoom />
+            <JoinRoom closeRoomModal={closeRoomModal} />
             :
             null
         }

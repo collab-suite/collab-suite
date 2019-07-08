@@ -13,6 +13,13 @@ function ParentDrawingRoom(props) {
         window.alert('Host has closed the room')
         props.history.push('/')
     })
+    useEffect(() => {
+        socket.emit('join room', user)
+        return cleanUp
+    }, [])
+    function cleanUp () {
+        socket.emit('leave room', user)
+    }
 
     return (
         <div className='canvas-page-container' >
@@ -24,8 +31,7 @@ function ParentDrawingRoom(props) {
                 {/* <ChatRoom  /> */}
                 <ChatRoom socket={socket} />
             </div>
-        </div>
-        
+        </div> 
     )
 }
 
