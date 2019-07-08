@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {Line, Rect, Circle, FreeDraw} from './constructors'
+import {connect} from 'react-redux'
 import './canvasdraw.css'
+import ColorPicker from 'rc-color-picker';
 
 class CanvasDraw extends Component {
     constructor() {
@@ -331,6 +333,7 @@ class CanvasDraw extends Component {
                             {this.displayElements()}
                         </div>
                     } */}
+                <ColorPicker  color={'#36c'} />
 
                {this.state.shapeSize &&
                         <div className="attributes">
@@ -363,5 +366,9 @@ class CanvasDraw extends Component {
         )
     }
 }
-
-export default CanvasDraw
+function mapStateToProps(state) {
+    return {
+        user:state.user
+    }
+}
+export default connect(mapStateToProps)(CanvasDraw)
