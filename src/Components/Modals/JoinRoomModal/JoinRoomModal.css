@@ -4,9 +4,18 @@
     margin: 0;
 }
 
+.page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.3);
+}
+
 .room-container {
-    height: 50vh;
-    width: 40%;
+    height: 450px;
+    width: 550px;
     background: #fffffc;
     display: flex;
     align-items: center;
@@ -20,31 +29,196 @@
 .room-header {
     color: #0FA3B1;
     font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
-    margin-top: -10vh;
-    margin-bottom: 17vh;
+    text-transform: capitalize;
+    margin-bottom: 50px;
 }
 
-/* Button */
+/* Input Field */
+
+.a-field__label-number {
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+  }
+  
+  .field-number{
+    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+  }
+  
+  .field__input-number { 
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+  
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  
+    font-family: inherit;
+    font-size: 1rem;
+    margin-top: 1vh;
+    margin-left: -25%;
+  }
+  
+  .field__input-number:focus::-webkit-input-placeholder{
+    color: var(--uiFieldPlaceholderColor);
+  }
+  
+  .field__input-number:focus::-moz-placeholder{
+    color: var(--uiFieldPlaceholderColor);
+    opacity: 1;
+  }
+  
+  .a-field-number{
+    display: inline-block;
+  }
+  
+  .a-field__input-number{ 
+    display: block;
+    box-sizing: border-box;
+    width: 150%;
+  }
+  
+  .a-field__input-number:focus{
+    outline: none;
+  }
+  
+  /* Label - a-field */
+  
+  .a-field-number{
+    --uiFieldHeight: var(--fieldHeight, 40px);  
+    --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
+    --uiFieldBorderColor: var(--fieldBorderColor);
+  
+    --uiFieldFontSize: var(--fieldFontSize, 1em);
+    --uiFieldHintFontSize: var(--fieldHintFontSize, 1em);
+  
+    --uiFieldPaddingRight: var(--fieldPaddingRight, 15px);
+    --uiFieldPaddingBottom: var(--fieldPaddingBottom, 15px);
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 15px);   
+  
+    position: relative;
+    box-sizing: border-box;
+    font-size: var(--uiFieldFontSize);
+    padding-top: 1em;  
+  }
+  
+  .a-field-number .a-field__input-number{
+    height: var(--uiFieldHeight);
+    padding: 0 var(--uiFieldPaddingRight) 0 var(--uiFieldPaddingLeft);
+    border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColor);  
+  }
+  
+  .a-field-number .a-field__input-number::-webkit-input-placeholder{
+    opacity: 0;
+    transition: opacity .2s ease-out;
+  }
+  
+  .a-field-number .a-field__input-number::-moz-placeholder{
+    opacity: 0;
+    transition: opacity .2s ease-out;
+  }
+  
+  .a-field-number .a-field__input-number:not(:placeholder-shown) ~ .a-field__label-wrap-number .a-field__label-number{
+    opacity: 0;
+    bottom: var(--uiFieldPaddingBottom);
+  }
+  
+  .a-field-number .a-field__input-number:focus::-webkit-input-placeholder{
+    opacity: 1;
+    transition-delay: .2s;
+  }
+  
+  .a-field-number .a-field__input-number:focus::-moz-placeholder{
+    opacity: 1;
+    transition-delay: .2s;
+  }
+  
+  .a-field-number .a-field__label-wrap-number{
+    box-sizing: border-box;
+    width: 150%;
+    height: var(--uiFieldHeight);	
+  
+    pointer-events: none;
+    cursor: text;
+  
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .a-field-number .a-field__label-number{
+    position: absolute;
+    left: var(--uiFieldPaddingLeft);
+    bottom: calc(50% - .5em);
+  
+    line-height: 1;
+    font-size: var(--uiFieldHintFontSize);
+    margin-left: -20%;
+  
+    pointer-events: none;
+    transition: bottom .2s cubic-bezier(0.9,-0.15, 0.1, 1.15), opacity .2s ease-out;
+    will-change: bottom, opacity;
+  }
+  
+  .a-field-number .a-field__input-number:focus ~ .a-field__label-wrap-number .a-field__label-number{
+    opacity: 1;
+    bottom: var(--uiFieldHeight);
+  }
+  
+  /* Input Field - a-field_a2 */
+  
+  .a-field_a2-number .a-field__label-wrap-number:after{
+    content: "";
+    box-sizing: border-box;
+    width: 0;
+    height: var(--uiFieldBorderWidth);
+    background-color: var(--fieldBorderColorActive);
+  
+    position: absolute;
+    bottom: 0;
+    left: 0;  
+  
+    will-change: width;
+    transition: width .285s ease-out;
+    margin-left: -16.5%;
+  }
+  
+  .a-field_a2-number .a-field__input-number:focus ~ .a-field__label-wrap-number:after{
+    width: 102%;
+    margin-left: -16.5%;
+  }
+  
+  .field-number{
+    --fieldBorderColor: #D2E7E9;
+    --fieldBorderColorActive: #0FA3B1;
+  }
+
+/* Buttons */
+
+.room-btn-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+}
 
 .room-btn {
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
-    border-radius: 5px;
+    border-radius: 50px;
     font-family: 'Roboto', sans-serif;
     color: #0FA3B1;
     font-size: 20px;
     background: #fffffc;
-    padding: 5px 10px;
+    padding: 10px 30px;
     border: solid #0FA3B1 1.5px;
     text-decoration: none;
-    margin: 0 2vw;
+    margin: auto 1vw;
     outline: none;
+    text-transform: uppercase;
 }
 
 .room-btn:hover {
     background: #0FA3B1;
     color: #fffffc;
-    border-color: #fffffc;
+    border-color: #0FA3B1;
     text-decoration: none;
 }
