@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {ChatContainer, ChatRoom, Message, MessageForm, ChatInput, SendMessage, Name, MessageText} from './ChatRoomStyles'
+import swal from '@sweetalert/with-react'
 
 function Chat(props) {
     const user = useSelector(reduxState => reduxState.user)
@@ -13,8 +14,15 @@ function Chat(props) {
         socket.on('joined room', () => {
             console.log('hello')
         })
-        
+        return socket.emit('leave room', user)
     }, [])
+    function showLink() {
+        return swal({
+            content: (
+                <h4>{user.roomID}</h4>
+            )
+        })
+    }
     function handleSendMessage() {
         let userInfo = {
             message: chatMessage,
@@ -35,6 +43,7 @@ function Chat(props) {
     })
     return (
         <ChatContainer>
+            <button onClick={showLink}>Join Link</button>
             <ChatRoom>
                 {messageDisplay}
             </ChatRoom>

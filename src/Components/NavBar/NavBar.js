@@ -4,8 +4,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import {resetRedux, joinRoom} from '../../redux/reducers/userReducer'
 import {withRouter} from 'react-router-dom'
 import axios from 'axios'
-import LoginModal from '../LoginModal/LoginModal'
-import RegisterModal from '../RegisterModal/RegisterModal'
+import LoginModal from '../Home/LoginModalButton'
+import RegisterModal from '../Modals/RegisterModal/RegisterModal'
 
 function NavBar(props){
     const user = useSelector(reduxState => reduxState.user)
@@ -41,7 +41,7 @@ function NavBar(props){
                         <Styles.NavButtonTwo>Profile</Styles.NavButtonTwo>
                         <Styles.NavButtonTwo onClick={createRoom}>Create Room</Styles.NavButtonTwo>
                         <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
-                        <Styles.NavButtonTwo>Join Room</Styles.NavButtonTwo>
+                        <Styles.NavButtonTwo onClick={props.openRoomModal}>Join Room</Styles.NavButtonTwo>
                         <Styles.NavButtonTwo onClick={logout}>Logout</Styles.NavButtonTwo>
                         <Styles.LineAfterTwo></Styles.LineAfterTwo>
                     </Styles.ButtonHolderTwo>
