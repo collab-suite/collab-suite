@@ -1,24 +1,21 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import {setName} from '../../redux/reducers/userReducer'
+import {setName} from '../../../redux/reducers/userReducer'
 import {useDispatch} from 'react-redux'
 import './RegisterModal.css'
-import Logo from '../../images/AllThinkLogo.png'
+import Logo from '../../../images/AllThinkLogo.png'
 
 function Register(props){
-    const [name, setFirstName] = useState('')
+    const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     function handleSubmit(){
-        console.log(name)
-        console.log(last_name)
-        console.log(email)
-        console.log(password)
-        axios.post('/auth/register', {name, last_name, email, password})
+        axios.post('/auth/register', {first_name, last_name, email, password})
         .then(res => {
             dispatch(setName(res.data))
+            props.closeRegModal()
             setFirstName('')
             setLastName('')
             setEmail('')
@@ -26,10 +23,6 @@ function Register(props){
         })
         .catch(err => {
         })
-    }
-    function changeName(name) {
-        console.log(name.target.value)
-        setFirstName(name.target.value)
     }
     return(
         <div className='page' onClick={props.closeRegModal}>

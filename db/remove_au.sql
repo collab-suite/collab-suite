@@ -1,1 +1,1 @@
-delete from active_users where user_id = ${user_id}
+delete from active_users where user_id = ${user_id};

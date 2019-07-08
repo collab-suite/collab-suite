@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import {useDispatch} from 'react-redux'
-import {setName} from '../../redux/reducers/userReducer'
-import '../LoginModal/LoginModal.css'
-import Logo from '../../images/AllThinkLogo.png'
+import {setName} from '../../../redux/reducers/userReducer'
+import './LoginModal.css'
+import Logo from '../../../images/AllThinkLogo.png'
 
 function LoginButtonModal(props) {
     const dispatch = useDispatch()

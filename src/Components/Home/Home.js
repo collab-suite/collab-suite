@@ -1,13 +1,20 @@
 import React, {useState} from 'react'
-import HomeStyles from './HomeStyles'
 import NavBar from '../NavBar/NavBar'
-import '../LoginModal/LoginModal.css'
-import Login from './LoginButtonModal'
-import Reg from '../RegisterModal/RegisterModal'
+import '../Modals/LoginModal/LoginModal.css'
+import Login from '../Modals/LoginModal/LoginModal'
+import Reg from '../Modals/RegisterModal/RegisterModal'
+import JoinRoom from '../Modals/JoinRoomModal/JoinRoomModal'
 
 function Home() {
     const [modal, setModal] = useState(false)
     const [regModal, setRegModal] = useState(false)
+    const [roomModal, setRoomModal] = useState(false)
+    function openRoomModal() {
+        setRoomModal(true)
+    }
+    function closeRoomModal() {
+        setRoomModal(false)
+    }
     function openModal() {
         setModal(true)
     }
@@ -24,7 +31,7 @@ function Home() {
     }
     return (
         <>
-        <NavBar openModal={openModal} closeModal={closeModal} openRegModal={openRegModal} closeRegModal={closeRegModal} />
+        <NavBar openModal={openModal} closeModal={closeModal} openRegModal={openRegModal} closeRegModal={closeRegModal} openRoomModal={openRoomModal} closeRoomModal={closeRoomModal} />
         {modal?
           <Login onClick={e => e.stopPropagation()} closeModal={closeModal} />
                 :
@@ -32,6 +39,11 @@ function Home() {
         }
         {regModal?
             <Reg onClick={e => e.stopPropagation()} closeRegModal={closeRegModal} />
+            :
+            null
+        }
+        {roomModal?
+            <JoinRoom />
             :
             null
         }

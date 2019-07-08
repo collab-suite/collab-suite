@@ -5,8 +5,8 @@ import Chat from './Chat/Chat'
 function ChatRoom(props) {
     return (
         //Put whiteboard Component Here
-        // <Chat socket={props.socket} />
         <>
+            <Chat socket={props.socket} />
         </>
     )
 }
