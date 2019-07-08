@@ -15,7 +15,7 @@ const SocketConnection = (server, app) => {
             io.to(userInfo.roomID).emit('joined room', data, users)
         })
         socket.on('drawObj', (newObj, roomID) => {
-            io.to(roomID).emit('drawObj', newObj)
+            io.to(roomID).broadcast('drawObj', newObj)
         })
         socket.on('leave room', async (userInfo) => {
             socket.leave(userInfo.roomID)
