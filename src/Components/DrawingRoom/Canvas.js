@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Line, Rect, Circle, FreeDraw} from './constructors'
+import { SketchPicker, SwatchesPicker } from 'react-color'
 import './canvasdraw.css'
 
 class CanvasDraw extends Component {
@@ -16,7 +17,8 @@ class CanvasDraw extends Component {
         fillStyle: false,
         strokeStyle: false,
         edit: false,
-        accordian: {shape: false, fillColor: false, lineColor: false, edit: false, circle: false, line: false,rect: false}
+        accordianTop: {shape: false, edit: false},
+        accordian: {fillColor: false, lineColor: false, circle: false, line: false,rect: false, freeDraw: false}
         }
     }
     newObj = {}
@@ -37,7 +39,7 @@ class CanvasDraw extends Component {
             } else if (e.target.attributes.value.value === 'large') {
                 this.setState({ tools: {radius: 30 }})
             }
-        } else if (this.state.shape ==='line') {
+        } else if (this.state.shape ==='line' || this.state.shape ==='freeDraw') {
             if (e.target.attributes.value.value === 'small'){
                 this.setState({ tools: {lineWidth: 2} })
             } else if (e.target.attributes.value.value === 'medium') {
@@ -66,29 +68,23 @@ class CanvasDraw extends Component {
             })
         }
     }
-    
-    updateToolPan  = (e) => {
-        this.setState({
-            tool: 'pan',
-            shape: false
-        })
-    }
 
-    updateFillStyle = (e) => {
+    updateFillStyle = (color,event) => {
         this.setState({
-            fillStyle: true,
-            shapeSize: false,
-            strokeStyle: false,
-            edit: false
+            tools: {
+                ...this.state.tools,
+                fillStyle: color.hex
+            }
         })
     }
-    updateStrokeStyle = (e) => {
+    updateStrokeStyle = (color,event) => {
         this.setState({
-            strokeStyle: true,
-            shapeSize: false,
-            fillStyle: false,
-            edit: false
+            tools: {
+                ...this.state.tools,
+                strokeStyle: color.hex
+            }
         })
+
     }
 
     updateEdit = (e) => {
@@ -250,7 +246,6 @@ class CanvasDraw extends Component {
                 index:i
             }
         })
-
     }
 
     displayElements = () => {
@@ -278,6 +273,8 @@ class CanvasDraw extends Component {
 
 
     render() {
+        console.log(this.state.tools.fillStyle)
+
         return(
            <div className="pageContainer">
                <div className="viewport">
@@ -292,14 +289,20 @@ class CanvasDraw extends Component {
                     <div className='elementList'>
                             <div className='slideHeader sliderText' name="shape" onClick={this.makeActive}>Shapes</div>
                                 <div className={(this.state.accordian.shape) ? 'slideBody active' : 'slideBody'}>
-                                    <h3 className=" sliderText slideHeader " value="circle" name="circle" onClick={this.makeActive}>Circle</h3>
-                                    <div className={(this.state.accordian.circle) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                    <h3 className=" sliderText slideHeader " value="freeDraw" name="freeDraw" onClick=    {this.makeActive}>Free Draw</h3>
+                                    <div className={(this.state.accordian.freeDraw) ? 'subSlideBody subActive' : 'subSlideBody'}>
                                         <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
                                         <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
                                         <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
                                     </div>
                                     <h3 className=" slideHeader sliderText" value="line" name="line" onClick={this.makeActive}>Line</h3>
                                      <div className={(this.state.accordian.line) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                        <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
+                                        <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
+                                        <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
+                                    </div>
+                                    <h3 className=" sliderText slideHeader " value="circle" name="circle" onClick={this.makeActive}>Circle</h3>
+                                    <div className={(this.state.accordian.circle) ? 'subSlideBody subActive' : 'subSlideBody'}>
                                         <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
                                         <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
                                         <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
@@ -311,14 +314,22 @@ class CanvasDraw extends Component {
                                         <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p> 
                                     </div>
                                     <div className='slideHeader' name="fillColor" onClick={this.makeActive}>Fill Color</div>
-                                        <div  className={(this.state.accordian.fillColor) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                        <div  className={(this.state.accordian.fillColor) ? 'subSlideBody subActiveCenter' : 'subSlideBody'}>
+                                            <SwatchesPicker 
+                                                width={175}
+                                                height={400}
+                                                onChangeComplete={this.updateFillStyle}
+                                                />
                                          </div>
                                     <div className='slideHeader' name="lineColor"  onClick={this.makeActive}>Line Color</div>
-                                        <div  className={(this.state.accordian.lineColor) ? 'subSlideBody subActive' : 'subSlideBody'} >color picker options to set state.strokeStyle
+                                        <div  className={(this.state.accordian.lineColor) ? 'subSlideBody subActiveCenter' : 'subSlideBody'} >
+                                            <SwatchesPicker 
+                                                width={175}
+                                                height={395}
+                                                onChangeComplete={this.updateStrokeStyle}
+                                                />
                                         </div>
-                                    <div className={(this.state.accordian.shape) ? 'slideBody active' : 'slideBody'}>
-                                        <h3 className=" sliderText slideHeader " value="freeDraw" name="freeDraw" onClick={this.makeActive}>Free Draw</h3>
-                                    </div>
+                                    
                                 </div>
                             <div className='slideHeader' name="edit" onClick={this.makeActive}>Edit</div>
                             <div className={(this.state.accordian.edit) ? 'slideBody active' : 'slideBody'}>
