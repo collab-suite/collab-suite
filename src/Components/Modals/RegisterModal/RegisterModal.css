@@ -202,18 +202,18 @@
 .register-btn {
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
-    border-radius: 5px;
+    border-radius: 50px;
     font-family: 'Roboto', sans-serif;
     color: #0FA3B1;
     font-size: 20px;
     background: #fffffc;
-    padding: 5px 10px;
+    padding: 10px 30px;
     border: solid #0FA3B1 1.5px;
     text-decoration: none;
     outline: none;
-    margin-top: 60px;
-    margin-left: 97px;
-    width: 35%;
+    margin-top: 40px;
+    margin-left: 82px;
+    width: 45%;
 }
 
 .register-btn:hover {
