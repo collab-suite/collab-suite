@@ -288,14 +288,6 @@ class CanvasDraw extends Component {
         return(
            <div className="pageContainer">
                <div className="viewport">
-                   <canvas 
-                       ref={(ref) => (this.canvas = ref)}
-                       style={{ background: 'white' }}
-                       onMouseDown={this.onMouseDown}
-                    //    onMouseLeave={this.endPaintEvent}
-                       onMouseUp={this.onMouseUp}
-                       onMouseMove={this.onMouseMove}
-                    />
                     <div className='elementList'>
                             <div className='slideHeader sliderText' name="shape" onClick={this.makeActive}>Shapes</div>
                                 <div className={(this.state.accordianTop.shape) ? 'slideBody active' : 'slideBody'}>
@@ -346,6 +338,14 @@ class CanvasDraw extends Component {
                                 {this.displayElements()}
                             </div>  
                          </div>
+                         <canvas 
+                               ref={(ref) => (this.canvas = ref)}
+                               style={{ background: 'white' }}
+                               onMouseDown={this.onMouseDown}
+                            //    onMouseLeave={this.endPaintEvent}
+                               onMouseUp={this.onMouseUp}
+                               onMouseMove={this.onMouseMove}
+                            />
                     </div>   
            </div>
         )
