@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {Line, Rect, Circle, FreeDraw} from './constructors'
+import {Line, Rect, Circle, FreeDraw, FreeDrawComplete, CircleComplete, RectComplete, LineComplete} from './constructors'
+import { SwatchesPicker } from 'react-color'
 import {connect} from 'react-redux'
 import './canvasdraw.css'
-import ColorPicker from 'rc-color-picker';
 
 class CanvasDraw extends Component {
     constructor() {
@@ -10,15 +10,14 @@ class CanvasDraw extends Component {
         this.state =  {
         isPainting: false,
         tools: { fillStyle:'white', strokeStyle:'black', lineWidth: 5, radius: 30,},
-        userStrokeStyle: '#F0C987',
         duplicateLastObj: {},
         newObj: {},
         shape: 'line',
-        shapeSize: false,
-        fillStyle: false,
-        strokeStyle: false,
-        edit: false,
-        accordian: {shape: false, fillColor: false, lineColor: false, edit: false, circle: false, line: false,rect: false}
+        editObj: {},
+        accordianTop: {shape: false, edit: false},
+        initialAccordianTop: {shape: false, edit: false},
+        accordian: {fillColor: false, lineColor: false, circle: false, line: false,rect: false, freeDraw: false},
+        initialAccordian: {fillColor: false, lineColor: false, circle: false, line: false,rect: false, freeDraw: false}
         }
     }
     newObj = {}
@@ -33,19 +32,19 @@ class CanvasDraw extends Component {
     updateShapeSize = (e) => {
         if (this.state.shape === 'circle') {
             if (e.target.attributes.value.value === 'small'){
-                this.setState({ tools: { radius: 10}})
+                this.setState({ tools: {...this.state.tools, radius: 10}})
             } else if (e.target.attributes.value.value === 'medium') {
-                this.setState({tools: {radius: 20} })
+                this.setState({tools: {...this.state.tools,radius: 20} })
             } else if (e.target.attributes.value.value === 'large') {
-                this.setState({ tools: {radius: 30 }})
+                this.setState({ tools: {...this.state.tools,radius: 30 }})
             }
-        } else if (this.state.shape ==='line') {
+        } else if (this.state.shape ==='line' || this.state.shape ==='freeDraw') {
             if (e.target.attributes.value.value === 'small'){
-                this.setState({ tools: {lineWidth: 2} })
+                this.setState({ tools: {...this.state.tools,lineWidth: 2} })
             } else if (e.target.attributes.value.value === 'medium') {
-                this.setState({tools: {lineWidth: 5}})
+                this.setState({tools: {...this.state.tools,lineWidth: 5}})
             } else if (e.target.attributes.value.value === 'large') {
-                this.setState({ tools: {lineWidth: 10} })
+                this.setState({ tools: {...this.state.tools,lineWidth: 10} })
             }
         }
         this.setState({
@@ -53,66 +52,42 @@ class CanvasDraw extends Component {
         })
     }
 
-    updateColor = (e) => {
-        if (this.state.fillStyle) {
-            this.setState({
-                tools:{...this.state.tools,
-                    fillStyle:e.target.attributes.value.value
-                }
-            })
-        } else if (this.state.strokeStyle) {
-            this.setState({
-                tools:{...this.state.tools,
-                strokeStyle:e.target.attributes.value.value
-                }
-            })
-        }
-    }
-    
-    updateToolPan  = (e) => {
+
+    updateFillStyle = (color,event) => {
         this.setState({
-            tool: 'pan',
-            shape: false
+            tools: {
+                ...this.state.tools,
+                fillStyle: color.hex
+            }
+        })
+    }
+    updateStrokeStyle = (color,event) => {
+        this.setState({
+            tools: {
+                ...this.state.tools,
+                strokeStyle: color.hex
+            }
         })
     }
 
-    updateFillStyle = (e) => {
-        this.setState({
-            fillStyle: true,
-            shapeSize: false,
-            strokeStyle: false,
-            edit: false
-        })
-    }
-    updateStrokeStyle = (e) => {
-        this.setState({
-            strokeStyle: true,
-            shapeSize: false,
-            fillStyle: false,
-            edit: false
-        })
-    }
-
-    updateEdit = (e) => {
-        this.setState({
-            edit: !this.state.edit,
-            strokeStyle: false,
-            shapeSize: false,
-            fillStyle: false
-        })
-    }
-
-    deleteElement = () => {
+    deleteElement = (i) => {
         this.c.clearRect(0,0,1000,1000)
         this.drawObj.splice(this.state.selectElement.index, 1)
         for (let i = 0; i < this.drawObj.length; i++) {
             this.drawObj[i].draw(this.c)
         }
         this.setState({
-            edit: false
+            accordianTop: {
+                edit: false
+            }
         })
         this.setState({
+        accordianTop: {
             edit: true
+            },
+        editObj: {
+            
+        }
         })
     }
 
@@ -124,10 +99,14 @@ class CanvasDraw extends Component {
             this.drawObj[i].draw(this.c)
         }
         this.setState({
-            edit: false
+            accordianTop: {
+                edit: false
+            }
         })
         this.setState({
+        accordianTop: {
             edit: true
+            }        
         })
     }
 
@@ -139,10 +118,14 @@ class CanvasDraw extends Component {
             this.drawObj[i].draw(this.c)
         }
         this.setState({
-            edit: false
+            accordianTop: {
+                edit: false
+            }
         })
         this.setState({
+        accordianTop: {
             edit: true
+            }        
         })
     }
 
@@ -154,10 +137,14 @@ class CanvasDraw extends Component {
             this.drawObj[i].draw(this.c)
         }
         this.setState({
-            edit: false
+            accordianTop: {
+                edit: false
+            }
         })
         this.setState({
+        accordianTop: {
             edit: true
+            }        
         })
     }
 
@@ -168,7 +155,30 @@ class CanvasDraw extends Component {
         this.c.lineJoin = 'round'
         this.c.lineCap = 'round'
         this.c.lineWidth = 2
-        // this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
+        this.props.socket.on('drawObj',(newObj) => {
+            console.log('hitting socket on')
+            this.c.clearRect(0,0,1000,1000)
+            if (newObj.shape === 'circle') {
+                let obj = new CircleComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            } else if(newObj.shape === 'line') {
+                let obj = new LineComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            } else if(newObj.shape === 'rect') {
+                let obj = new RectComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            } else if(newObj.shape === 'freeDraw') {
+                let obj = new FreeDrawComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            }
+            for (let i = 0; i < this.drawObj.length; i++) {
+                this.drawObj[i].draw(this.c)
+            }
+        })
     }
 
     onMouseDown = ({nativeEvent}) => {
@@ -228,7 +238,7 @@ class CanvasDraw extends Component {
                 this.newObj.update(offsetX,offsetY, 30)
             }
             this.drawObj.push(this.newObj)
-            // this.props.socket.emit('drawObj',this.newObj,this.props.roomID)
+            this.props.socket.emit('drawObj',this.newObj,this.props.user.roomID)
             this.c.clearRect(0,0,1000,1000)
             this.newObj.draw(this.c)
             for (let i = 0; i < this.drawObj.length; i++) {
@@ -240,7 +250,7 @@ class CanvasDraw extends Component {
         }
     }
 
-    selectDrawObj = (elem, i) => {
+    selectDrawObj = (elem, index) => {
         this.c.clearRect(0,0,1000,1000)
         for (let i = 0; i < this.drawObj.length; i++) {
             this.drawObj[i].draw(this.c)
@@ -249,18 +259,26 @@ class CanvasDraw extends Component {
         this.setState({
             selectElement: {
                 elem,
-                index:i
-            }
+                index:index
+            },
+            editObj: {
+                [index]:true
+            },
         })
-
     }
 
     displayElements = () => {
         let shapeList = this.drawObj.map((elem,i) => {
             return (
-                <div key={i} className="element" onClick={() => this.selectDrawObj(elem, i)}>
-                    <span><h2>{`${i + 1}: ${elem.constructor.name}`}</h2></span>
-                </div>
+                    <>
+                        <span onClick={() => this.selectDrawObj(elem, i)}><h2>{`${i + 1}: ${elem.constructor.name}`}</h2></span>
+                            <div className={(this.state.editObj[i]) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                <p value='delete' name="edit" onClick= {this.deleteElement}>Delete</p>
+                                <p value='moveToBack' name="edit" onClick= {this.moveToBack}>{`<-`}</p>
+                                <p value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</p>
+                                <p value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</p>
+                            </div>
+                    </>
             )
         })
         return(shapeList)
@@ -268,40 +286,47 @@ class CanvasDraw extends Component {
 
     makeActive = (e) => {
         // for (let i = 0; i < this.state.according.length)
-        if (e.target.attributes.name.value === 'circle' || e.target.attributes.name.value === 'line' || e.target.attributes.name.value === 'rect' || e.target.attributes.name.value === 'freeDraw') {
-            this.updateShape(e.target.attributes.name.value)
-        }
-        this.setState({
-            accordian:{ ...this.state.accordian,
-                 [e.target.attributes.name.value]: !this.state.accordian[e.target.attributes.name.value]
+        if (e.target.attributes.name.value in this.state.accordian) {
+            if (e.target.attributes.name.value !== 'fillColor' && e.target.attributes.name.value !=='lineColor') {
+                this.updateShape(e.target.attributes.name.value)
             }
-        })
+            this.setState({
+                accordian:{ ...this.state.initialAccordian,
+                     [e.target.attributes.name.value]: !this.state.accordian[e.target.attributes.name.value]
+                }
+            })
+        } else {
+            this.setState({
+                accordianTop:{ ...this.state.initialAccordianTop,
+                     [e.target.attributes.name.value]: !this.state.accordianTop[e.target.attributes.name.value]
+                }
+            })
+        }
     }
 
 
     render() {
+        console.log(this.props)
         return(
            <div className="pageContainer">
                <div className="viewport">
-                   <canvas 
-                       ref={(ref) => (this.canvas = ref)}
-                       style={{ background: 'white' }}
-                       onMouseDown={this.onMouseDown}
-                    //    onMouseLeave={this.endPaintEvent}
-                       onMouseUp={this.onMouseUp}
-                       onMouseMove={this.onMouseMove}
-                    />
                     <div className='elementList'>
                             <div className='slideHeader sliderText' name="shape" onClick={this.makeActive}>Shapes</div>
-                                <div className={(this.state.accordian.shape) ? 'slideBody active' : 'slideBody'}>
-                                    <h3 className=" sliderText slideHeader " value="circle" name="circle" onClick={this.makeActive}>Circle</h3>
-                                    <div className={(this.state.accordian.circle) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                <div className={(this.state.accordianTop.shape) ? 'slideBody active' : 'slideBody'}>
+                                    <h3 className=" sliderText slideHeader " value="freeDraw" name="freeDraw" onClick=    {this.makeActive}>Free Draw</h3>
+                                    <div className={(this.state.accordian.freeDraw) ? 'subSlideBody subActive' : 'subSlideBody'}>
                                         <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
                                         <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
                                         <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
                                     </div>
                                     <h3 className=" slideHeader sliderText" value="line" name="line" onClick={this.makeActive}>Line</h3>
                                      <div className={(this.state.accordian.line) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                        <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
+                                        <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
+                                        <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
+                                    </div>
+                                    <h3 className=" sliderText slideHeader " value="circle" name="circle" onClick={this.makeActive}>Circle</h3>
+                                    <div className={(this.state.accordian.circle) ? 'subSlideBody subActive' : 'subSlideBody'}>
                                         <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
                                         <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
                                         <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
@@ -313,62 +338,46 @@ class CanvasDraw extends Component {
                                         <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p> 
                                     </div>
                                     <div className='slideHeader' name="fillColor" onClick={this.makeActive}>Fill Color</div>
-                                        <div  className={(this.state.accordian.fillColor) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                                        <div  className={(this.state.accordian.fillColor) ? 'subSlideBody subActiveCenter' : 'subSlideBody'}>
+                                            <SwatchesPicker 
+                                                width={175}
+                                                height={400}
+                                                onChange={this.updateFillStyle}
+                                                />
                                          </div>
                                     <div className='slideHeader' name="lineColor"  onClick={this.makeActive}>Line Color</div>
-                                        <div  className={(this.state.accordian.lineColor) ? 'subSlideBody subActive' : 'subSlideBody'} >color picker options to set state.strokeStyle
+                                        <div  className={(this.state.accordian.lineColor) ? 'subSlideBody subActiveCenter' : 'subSlideBody'} >
+                                            <SwatchesPicker 
+                                                width={175}
+                                                height={395}
+                                                onChange={this.updateStrokeStyle}
+                                                />
                                         </div>
-                                    <div className={(this.state.accordian.shape) ? 'slideBody active' : 'slideBody'}>
-                                        <h3 className=" sliderText slideHeader " value="freeDraw" name="freeDraw" onClick={this.makeActive}>Free Draw</h3>
-                                    </div>
+                                    
                                 </div>
                             <div className='slideHeader' name="edit" onClick={this.makeActive}>Edit</div>
-                            <div className={(this.state.accordian.edit) ? 'slideBody active' : 'slideBody'}>
+                            <div className={(this.state.accordianTop.edit) ? 'slideBody active' : 'slideBody'}>
                                 {this.displayElements()}
                             </div>  
                          </div>
+                         <canvas 
+                               ref={(ref) => (this.canvas = ref)}
+                               style={{ background: 'white' }}
+                               onMouseDown={this.onMouseDown}
+                            //    onMouseLeave={this.endPaintEvent}
+                               onMouseUp={this.onMouseUp}
+                               onMouseMove={this.onMouseMove}
+                            />
                     </div>   
-                    {/* {(this.state.edit) &&                       
-                        <div className="elementList">
-                            {this.displayElements()}
-                        </div>
-                    } */}
-                <ColorPicker  color={'#36c'} />
-
-               {this.state.shapeSize &&
-                        <div className="attributes">
-                            
-                        </div>
-                }
-                {(this.state.strokeStyle || this.state.fillStyle) &&
-                        <div className="attributes">
-                            <h2 value='blue' name="fillStyle" onClick= {this.updateColor}>Blue</h2>
-                            <h2 value='orange' name="fillStyle" onClick= {this.updateColor}>Orange</h2>
-                            <h2 value='green' name="fillStyle" onClick= {this.updateColor}>Green</h2>
-                        </div>
-                }
-                {(this.state.edit) &&
-                        <div className="attributes">
-                            <h2 value='delete' name="edit" onClick= {this.deleteElement}>Delete</h2>
-                            <h2 value='moveToBack' name="edit" onClick= {this.moveToBack}>Send To Back</h2>
-                            <h2 value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</h2>
-                            <h2 value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</h2>
-                        </div>
-                }
-               <div className="toolbox">
-                   <div className="tool">
-                       <h2 value={!this.state.fillStyle} name="fillStyle" onClick={this.updateFillStyle}>Fill Color</h2>
-                       <h2 value={!this.state.strokeStyle}  name="strokeStyle" onClick={this.updateStrokeStyle}>Line</h2>
-                       <h2 value="edit" name="edit" onClick={this.updateEdit}>Edit</h2>
-                   </div>
-               </div>
            </div>
         )
     }
 }
+
 function mapStateToProps(state) {
-    return {
+    return{
         user:state.user
     }
 }
-export default connect(mapStateToProps)(CanvasDraw)
+
+export default connect(mapStateToProps, )(CanvasDraw)

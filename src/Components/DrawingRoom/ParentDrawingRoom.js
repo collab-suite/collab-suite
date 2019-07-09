@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import io from 'socket.io-client'
 import {useSelector} from 'react-redux'
 import ChatRoom from './ChatRoom'
-import Canvas from './Canvas'
+import Canvas from './Canvas/Canvas'
 import './ParentDrawingRoom.css'
 
 function ParentDrawingRoom(props) {
@@ -30,8 +30,8 @@ function ParentDrawingRoom(props) {
     return (
         <div className='canvas-page-container' >
             <div className='canvas-holder' >
-                <Canvas />
-                {/* <Canvas socket={socket} /> */}
+                {/* <Canvas /> */}
+                <Canvas socket={socket} />
             </div>
             <div className='chat-holder' >
                 {/* <ChatRoom  /> */}
