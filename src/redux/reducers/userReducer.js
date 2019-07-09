@@ -53,7 +53,8 @@ export const joinRoom = (roomID) => {
     }
 }
 
-export const createRoom = () => {
+
+export const hostCreate = () => {
     return {
         type: CREATE_ROOM
     }

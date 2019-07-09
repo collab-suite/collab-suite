@@ -27,6 +27,7 @@ function ParentDrawingRoom(props) {
     function hostCleanUp() {
         socket.emit('end room', user)
     }
+    console.log(user)
     return (
         <div className='canvas-page-container' >
             <div className='canvas-holder' >

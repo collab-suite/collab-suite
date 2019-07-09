@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Styles from './NavBarStyles'
 import {useSelector, useDispatch} from 'react-redux'
-import {resetRedux, joinRoom, createRoom} from '../../redux/reducers/userReducer'
+import {resetRedux, joinRoom, hostCreate} from '../../redux/reducers/userReducer'
 import {withRouter} from 'react-router-dom'
 import axios from 'axios'
 import LoginModal from '../Home/LoginModalButton'
@@ -18,8 +18,9 @@ function NavBar(props){
     }
     function createRoom() {
         axios.get('/room/create')
-        .then(res => {
+        .then( res => {
             dispatch(joinRoom(res.data))
+            dispatch(hostCreate())
             props.history.push('/draw')
         })
     }
