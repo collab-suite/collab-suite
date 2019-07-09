@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Line, Rect, Circle, FreeDraw} from './constructors'
-import { SketchPicker, SwatchesPicker } from 'react-color'
+import {Line, Rect, Circle, FreeDraw, RectComplete, LineComplete} from './constructors'
+import { SwatchesPicker } from 'react-color'
 import {connect} from 'react-redux'
 import './canvasdraw.css'
 
@@ -155,7 +155,30 @@ class CanvasDraw extends Component {
         this.c.lineJoin = 'round'
         this.c.lineCap = 'round'
         this.c.lineWidth = 2
-        // this.props.socket.on('drawObj',(newObj) => {this.drawObj.push(newObj)})
+        this.props.socket.on('drawObj',(newObj) => {
+            console.log(newObj)
+            this.c.clearRect(0,0,1000,1000)
+            if (newObj.shape === 'circle') {
+                let obj = new CircleComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            } else if(newObj.shape === 'line') {
+                let obj = new LineComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            } else if(newObj.shape === 'rect') {
+                let obj = new RectComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            } else if(newObj.shape === 'freeDraw') {
+                let obj = new FreeDrawComplete(newObj)
+                obj.draw(this.c)
+                this.drawObj.push(obj)
+            }
+            for (let i = 0; i < this.drawObj.length; i++) {
+                this.drawObj[i].draw(this.c)
+            }
+        })
     }
 
     onMouseDown = ({nativeEvent}) => {
@@ -265,7 +288,6 @@ class CanvasDraw extends Component {
         // for (let i = 0; i < this.state.according.length)
         if (e.target.attributes.name.value in this.state.accordian) {
             if (e.target.attributes.name.value !== 'fillColor' && e.target.attributes.name.value !=='lineColor') {
-                console.log(e.target.attributes.name.value)
                 this.updateShape(e.target.attributes.name.value)
             }
             this.setState({
@@ -284,7 +306,6 @@ class CanvasDraw extends Component {
 
 
     render() {
-        console.log(this.props)
         return(
            <div className="pageContainer">
                <div className="viewport">
