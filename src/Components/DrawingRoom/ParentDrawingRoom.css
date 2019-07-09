@@ -15,7 +15,8 @@
 }
 
 .chat-holder {
-    width: 400px;
+    width: 18%;
     height: 100%;
     background: #fffffc;
+    padding-right: 1%;
 }

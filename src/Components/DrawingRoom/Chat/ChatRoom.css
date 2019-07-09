@@ -5,18 +5,39 @@
 .chat-container {
 }
 
+/* Message Headers */
+
+.msg-header-1 {
+  float: left;
+  color: #b5b5b5;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.msg-header-2 {
+  float: right;
+  color: #b5b5b5;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+
 /* Messages */
 
-.msg {
-  list-style: none; 
+.super1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.msg-header {
-  color: #b5b5b5;
-  font-size: 50px;
+.super2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-.msg-text {
+.msg1 {
+  list-style: none;
   background: #72b8ff;
   border-radius: 20px;
   display: inline-block;
@@ -26,16 +47,30 @@
   font-size: small;
   box-shadow: 1px 1px 2px rgba(0,0,0,.3);
   margin: 5px;
-  position: relative;
+  position: relative; 
 }
 
-.msg.u1 {
+.msg2 {
+  list-style: none;
+  background: #00D025;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 10px;
+  color: #fff;
+  font-weight: lighter;
+  font-size: small;
+  box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+  margin: 5px;
+  position: relative; 
+}
+
+.msg1.u1 {
   float: left;
   clear: both;
   border-top-left-radius: 0px;
 }
 
-.msg.u1:before {
+.msg1.u1:before {
   content: "";
   width: 0px;
   height: 0px;
@@ -49,9 +84,30 @@
   left: -10px;
 }
 
+.msg2.u2 {
+    float: right;
+    clear: both;
+    border-top-right-radius: 0px;
+}
+
+.msg2.u2:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  display: block;
+  border-left: 5px solid #00D025;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #00D025;
+  border-bottom: 5px solid transparent;
+  position: absolute;
+  top: 0px;
+  right: -10px;
+}
+
 /* Message Form */
 
 .msg-form-container {
+
 }
 
 .msg-form {
@@ -67,7 +123,7 @@
   padding: 10px;
   box-sizing: border-box;
   font-size: 18px;
-  width: 13%;
+  width: 12%;
   height: 40px;
   border: none;
   display: inline-block;
@@ -93,7 +149,6 @@
   color: #fffffc;
   background: #999;
   position: relative;
-  /* top: -2px; */
   outline: none;
   cursor: pointer;
   font-size: 1rem;
@@ -108,7 +163,7 @@
 .join-room-btn {
   border: none;
   outline: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-top: 1rem;
 }
 
