@@ -15,12 +15,18 @@ function ParentDrawingRoom(props) {
     })
     useEffect(() => {
         socket.emit('join room', user)
-        return cleanUp
+        if (user.createdRoom) {
+            return hostCleanUp
+        } else {
+            return cleanUp
+        }
     }, [])
     function cleanUp () {
         socket.emit('leave room', user)
     }
-
+    function hostCleanUp() {
+        socket.emit('end room', user)
+    }
     return (
         <div className='canvas-page-container' >
             <div className='canvas-holder' >

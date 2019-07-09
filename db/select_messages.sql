@@ -1,1 +1,1 @@
-select * from messages where room_id = ${roomID}
+select * from messages where room_id = ${room_id}

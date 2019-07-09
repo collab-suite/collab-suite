@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Styles from './NavBarStyles'
 import {useSelector, useDispatch} from 'react-redux'
-import {resetRedux, joinRoom} from '../../redux/reducers/userReducer'
+import {resetRedux, joinRoom, createRoom} from '../../redux/reducers/userReducer'
 import {withRouter} from 'react-router-dom'
 import axios from 'axios'
 import LoginModal from '../Home/LoginModalButton'

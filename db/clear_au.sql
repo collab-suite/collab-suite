@@ -1,0 +1,1 @@
+delete from active_users where room_id = ${room_id}

@@ -1,16 +1,17 @@
-import { bindActionCreators } from "redux";
 
 const initialState = {
     firstName: '',
     lastName: '',
     roomID: '',
     id: '',
-    email: ''
+    email: '',
+    createdRoom: false
 }
 
 const SET_NAME = 'SET_NAME'
 const JOIN_ROOM = 'JOIN_ROOM'
 const RESET = 'RESET'
+const CREATE_ROOM = 'CREATE_ROOM'
 
 function reducer(state = initialState, action) {
     switch(action.type){
@@ -28,6 +29,11 @@ function reducer(state = initialState, action) {
             return {
                 ...initialState
             }
+        case CREATE_ROOM:
+            return {
+                ...state,
+                createdRoom: true
+            }
         default: 
             return state
     }
@@ -44,6 +50,12 @@ export const joinRoom = (roomID) => {
     return {
         type: JOIN_ROOM,
         payload: roomID
+    }
+}
+
+export const createRoom = () => {
+    return {
+        type: CREATE_ROOM
     }
 }
 

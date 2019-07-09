@@ -16,6 +16,10 @@ function Chat(props) {
     })
     useEffect(() => {
         socket.on('message recieved', messages => setMessages(messages))
+        socket.on('joined room', (messages, users) => {
+            setMessages(messages)
+            setUsersDisp(users)
+        })
     }, [])
     function showLink() {
         return swal({
