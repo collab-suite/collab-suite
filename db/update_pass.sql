@@ -1,0 +1,1 @@
+update users set password = ${pass} where email = ${email}

@@ -13,7 +13,7 @@ function ProfilePage(props){
     function changePass(e) {
         e.preventDefault()
         if (newPass === confirmPass) {
-            axios.post('/auth/changepass', {curPass, newPass})
+            axios.put('/auth/pass', {curPass, newPass, user})
             .then(res => {
                 swal({
                     content: (

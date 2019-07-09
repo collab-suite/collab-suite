@@ -42,6 +42,8 @@ app.get('/auth/user', authCtrl.getUser)
 app.get('/auth/logout', authCtrl.logout)
 app.post('/rooms/join', roomCtrl.joinRoom)
 app.get('/room/create', roomCtrl.createRoom)
+app.put('/auth/pass', authCtrl.changePass)
+app.put('/auth/info', )
 
 // Socket Endpoints
 
