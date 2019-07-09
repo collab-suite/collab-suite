@@ -61,5 +61,37 @@ module.exports = {
     logout: (req, res) => {
         req.session.destroy()
         res.sendStatus(200)
+    },
+
+    changePass: async (req, res) => {
+        const {curPass, newPass, user} = req.body
+        const db = req.app.get('db')
+        const result = await db.check_user({email: user.email}) 
+        const auth = bcrypt.compareSync(curPass, result[0].password)
+        if (auth) {
+            const salt = bcrypt.genSaltSync(10)
+            const hash = bcrypt.hashSync(newPass, salt)
+            await db.update_pass({pass: hash, email: user.email})
+            res.status(200).send('Password updated')
+        } else {
+            res.status(401).send('Incorrect pass')
+        }
+    },
+
+    updateInfo: async (req, res) => {
+        const db = req.app.get('db')
+        const {email, firstName, lastName, user} = req.body
+        const result = await db.check_user({email})
+        if (email !== user.email) {
+            if (!result[0]) {
+                const user = await db.update_user({first_name: firstName, last_name: lastName, email, user_id: user.id})
+                res.status(201).send(user)
+            } else {
+                res.status(401).send('Email already in use.')
+            }
+        } else {
+            const user = await db.update_user({first_name: firstName, last_name: lastName, email, user_id: user.id})
+            res.status(201).send(user)
+        }
     }
 }
