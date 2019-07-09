@@ -91,12 +91,22 @@ canvas {
 }
 
 .subActive {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-
 }
+
+
+.subActiveCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .tool {
-    width: 400px;;
+    width: 400px;
     display: flex;
     justify-content: space-around;
     align-items: center;

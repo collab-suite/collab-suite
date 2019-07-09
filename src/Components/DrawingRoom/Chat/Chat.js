@@ -48,19 +48,32 @@ function Chat(props) {
         setChatMsg('')
     }
     const messageDisplay = messages.map((ele, i) => {
-        return (
-            <>
-                <h4 className='msg-header'>{ele.first_name} {ele.last_name.charAt(0)} </h4>
-                <li className='msg u1' key={i}>
-                    <p className='msg-text'>{ele.message}</p>
-                </li>
-            </>
-        )
+        if (ele.first_name === user.firstName && ele.last_name === user.lastName) {
+            return (
+                <div className='super1' key={i}>
+                    <h4 className='msg-header-1'>{ele.first_name} {ele.last_name.charAt(0)} </h4>
+                    <li className='u1 msg1'>
+                        <p className='msg-text'>{ele.message}</p>
+                    </li>
+                </div>
+            )
+        } else {
+            return (
+                <div className='super2' key={i}>
+                    <h4 className='msg-header-2'>{ele.first_name} {ele.last_name.charAt(0)} </h4>
+                    <li className='u2 msg2' key={i}>
+                        <p className='msg-text-2'>{ele.message}</p>
+                    </li>
+                </div>
+            )
+        }
     })
     return (
         <div className='chat-container'>
             <div className='join-room-btn-container'>
                 <button onClick={showLink} className='join-room-btn'>Join Room</button>
+                <button className='join-room-btn'>End Room</button>
+                <button className='join-room-btn'>Show Users</button>
             </div>
             <ul className='dialogue'>
                 {messageDisplay}
