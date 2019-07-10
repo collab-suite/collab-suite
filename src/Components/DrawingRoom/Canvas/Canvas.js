@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Line, Rect, Circle, FreeDraw, FreeDrawComplete, CircleComplete, RectComplete, LineComplete} from './constructors'
 import { SwatchesPicker } from 'react-color'
 import {connect} from 'react-redux'
-import './canvasdraw.css'
+import './Canvas.css'
 
 class CanvasDraw extends Component {
     constructor() {
@@ -149,8 +149,8 @@ class CanvasDraw extends Component {
     }
 
     componentDidMount = () => {
-        this.canvas.width = 900
-        this.canvas.height = 600
+        this.canvas.width = 700
+        this.canvas.height = 500
         this.c = this.canvas.getContext('2d')
         this.c.lineJoin = 'round'
         this.c.lineCap = 'round'
@@ -288,6 +288,7 @@ class CanvasDraw extends Component {
         // for (let i = 0; i < this.state.according.length)
         if (e.target.attributes.name.value in this.state.accordian) {
             if (e.target.attributes.name.value !== 'fillColor' && e.target.attributes.name.value !=='lineColor') {
+                console.log('hitting accordion and not fill color')
                 this.updateShape(e.target.attributes.name.value)
             }
             this.setState({
@@ -296,6 +297,7 @@ class CanvasDraw extends Component {
                 }
             })
         } else {
+            console.log('hitting top accordions')
             this.setState({
                 accordianTop:{ ...this.state.initialAccordianTop,
                      [e.target.attributes.name.value]: !this.state.accordianTop[e.target.attributes.name.value]
@@ -308,67 +310,88 @@ class CanvasDraw extends Component {
     render() {
         console.log(this.props)
         return(
-           <div className="pageContainer">
-               <div className="viewport">
-                    <div className='elementList'>
-                            <div className='slideHeader sliderText' name="shape" onClick={this.makeActive}>Shapes</div>
-                                <div className={(this.state.accordianTop.shape) ? 'slideBody active' : 'slideBody'}>
-                                    <h3 className=" sliderText slideHeader " value="freeDraw" name="freeDraw" onClick=    {this.makeActive}>Free Draw</h3>
-                                    <div className={(this.state.accordian.freeDraw) ? 'subSlideBody subActive' : 'subSlideBody'}>
-                                        <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
-                                        <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
-                                        <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
+           <div className="row">
+               {/* pageContainer */}
+               <div className="col">
+                   {/* viewport */}
+                    <div className='tabs'> 
+                    {/* elementList */}
+                        <div className='tab1'>
+                        <input type='checkbox' id='chck' />
+                        <label className='tab1-slideHeader' for='chck' name="shape" onClick={this.makeActive}>Tools</label>
+                            <div className={(this.state.accordianTop.shape) ? 'tab-slideBody tab-active' : 'tab-slideBody'}>
+                                <div className='tab'>
+                                    <input type='checkbox' id='chck1' />
+                                    <label className="tab-slideHeader" for='chck1' value="freeDraw" name="freeDraw" onClick={this.makeActive}>Marker</label>
+                                    <div className={(this.state.accordian.freeDraw) ? 'tab-subSlideBody tab-subActive' : 'tab-subSlideBody'}>
+                                        <div className="tab-sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</div>
+                                        <div className="tab-sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</div>
+                                        <div className="tab-sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</div>
                                     </div>
-                                    <h3 className=" slideHeader sliderText" value="line" name="line" onClick={this.makeActive}>Line</h3>
-                                     <div className={(this.state.accordian.line) ? 'subSlideBody subActive' : 'subSlideBody'}>
-                                        <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
-                                        <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
-                                        <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
-                                    </div>
-                                    <h3 className=" sliderText slideHeader " value="circle" name="circle" onClick={this.makeActive}>Circle</h3>
-                                    <div className={(this.state.accordian.circle) ? 'subSlideBody subActive' : 'subSlideBody'}>
-                                        <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
-                                        <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
-                                        <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p>
-                                    </div>
-                                    <h3 className="slideHeader sliderText" value="rect" name="rect" onClick={this.makeActive}>Rectangle</h3> 
-                                     <div className={(this.state.accordian.rect) ? 'subSlideBody subActive' : 'subSlideBody'}> 
-                                        <p className="sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</p>
-                                        <p className="sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</p>
-                                        <p className="sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</p> 
-                                    </div>
-                                    <div className='slideHeader' name="fillColor" onClick={this.makeActive}>Fill Color</div>
-                                        <div  className={(this.state.accordian.fillColor) ? 'subSlideBody subActiveCenter' : 'subSlideBody'}>
-                                            <SwatchesPicker 
-                                                width={175}
-                                                height={400}
-                                                onChange={this.updateFillStyle}
-                                                />
-                                         </div>
-                                    <div className='slideHeader' name="lineColor"  onClick={this.makeActive}>Line Color</div>
-                                        <div  className={(this.state.accordian.lineColor) ? 'subSlideBody subActiveCenter' : 'subSlideBody'} >
-                                            <SwatchesPicker 
-                                                width={175}
-                                                height={395}
-                                                onChange={this.updateStrokeStyle}
-                                                />
-                                        </div>
-                                    
                                 </div>
-                            <div className='slideHeader' name="edit" onClick={this.makeActive}>Edit</div>
-                            <div className={(this.state.accordianTop.edit) ? 'slideBody active' : 'slideBody'}>
-                                {this.displayElements()}
+                                <div className='tab'>
+                                    <input type='checkbox' id='chck2' />
+                                    <label className=" tab-slideHeader" for='chck2' value="line" name="line" onClick={this.makeActive}>Line</label>
+                                    <div className={(this.state.accordian.line) ? 'tab-subSlideBody tab-subActive' : 'tab-subSlideBody'}>
+                                        <div className="tab-sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</div>
+                                        <div className="tab-sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</div>
+                                        <div className="tab-sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</div>
+                                    </div>
+                                </div>
+                                <div className='tab'>
+                                    <input type='checkbox' id='chck3' />
+                                    <label className=" tab-slideHeader" for='chck3' value="circle" name="circle" onClick={this.makeActive}>Circle</label>
+                                    <div className={(this.state.accordian.circle) ? 'tab-subSlideBody tab-subActive' : 'tab-subSlideBody'}>
+                                        <div className="tab-sliderText" value='small' name="size" onClick= {this.updateShapeSize}>Small</div>
+                                        <div className="tab-sliderText" value='medium' name="size" onClick= {this.updateShapeSize}>Medium</div>
+                                        <div className="tab-sliderText" value='large' name="size" onClick= {this.updateShapeSize}>Large</div>
+                                    </div>
+                                </div>
+                                <div className='tab2'>
+                                    <input type='checkbox' id='chck4' />
+                                    <label className="tab2-slideHeader" for='chck4' value="rect" name="rect" onClick={this.makeActive}>Rectangle</label> 
+                                </div>
+                                <div className='tab'>
+                                    <input type='checkbox' id='chck5' />
+                                    <label className='tab-slideHeader' for='chck5' name="fillColor" onClick={this.makeActive}>Fill Color</label>
+                                    <div  className={(this.state.accordian.fillColor) ? 'tab-subSlideBody tab-subActiveCenter' : 'tab-subSlideBody'}>
+                                        <SwatchesPicker 
+                                            width={175}
+                                            height={400}
+                                            onChange={this.updateFillStyle}
+                                            />
+                                    </div>
+                                </div>
+                                <div className='tab'>
+                                    <input type='checkbox' id='chck6' />
+                                    <label className='tab-slideHeader' for='chck6' name="lineColor"  onClick={this.makeActive}>Line Color</label>
+                                    <div  className={(this.state.accordian.lineColor) ? 'tab-subSlideBody tab-subActiveCenter' : 'tab-subSlideBody'} >
+                                        <SwatchesPicker 
+                                            width={175}
+                                            height={395}
+                                            onChange={this.updateStrokeStyle}
+                                            />
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div className='tab1'>
+                                <input type='checkbox' id='chck7' />
+                                <label className='tab1-slideHeader' for='chck7' name="edit" onClick={this.makeActive}>Edit</label>
+                                <div className={(this.state.accordianTop.edit) ? 'tab-slideBody tab-active' : 'tab-slideBody'}>
+                                    {this.displayElements()}
+                                </div>
                             </div>  
-                         </div>
-                         <canvas 
-                               ref={(ref) => (this.canvas = ref)}
-                               style={{ background: 'white' }}
-                               onMouseDown={this.onMouseDown}
-                            //    onMouseLeave={this.endPaintEvent}
-                               onMouseUp={this.onMouseUp}
-                               onMouseMove={this.onMouseMove}
-                            />
-                    </div>   
+                        </div>
+                        <canvas 
+                            ref={(ref) => (this.canvas = ref)}
+                            style={{ background: 'white' }}
+                            onMouseDown={this.onMouseDown}
+                        //    onMouseLeave={this.endPaintEvent}
+                            onMouseUp={this.onMouseUp}
+                            onMouseMove={this.onMouseMove}
+                        />
+                </div>   
            </div>
         )
     }
