@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import swal from '@sweetalert/with-react'
 import './ChatRoom.css'
+import axios from 'axios';
 
 function Chat(props) {
     const user = useSelector(reduxState => reduxState.user)
@@ -9,11 +11,18 @@ function Chat(props) {
     const [usersDisp, setUsersDisp] = useState([])
     const [chatMessage, setChatMsg] = useState('')
     const {socket} = props
-    const onlineUsers = usersDisp.map((ele, i) => {
+    let onlineUsers = usersDisp.map((ele, i) => {
         return (
             <li key={i}>{ele.first_name} {ele.last_name.charAt(0)}</li>
         )
     })
+    function showUsersOnline() {
+        return (
+            <ul>
+                {onlineUsers}
+            </ul>
+        )
+    }
     useEffect(() => {
         socket.on('message recieved', messages => setMessages(messages))
         socket.on('joined room', (messages, users) => {
@@ -23,18 +32,12 @@ function Chat(props) {
     }, [])
     function showLink() {
         return swal({
-            content: (
-                <h4>{user.roomID}</h4>
-            )
+            text: `${user.roomID}`
         })
     }
     function showOnline() {
         return swal({
-            content: (
-                <ul>
-                    {onlineUsers}
-                </ul>
-            )
+            content: showUsersOnline
         })
     }
     function handleSendMessage() {
@@ -47,6 +50,27 @@ function Chat(props) {
         socket.emit('message send', userInfo)
         setChatMsg('')
     }
+    function leaveRoom() {
+        axios.delete(`/rooms/user?email=${user.email}`)
+        .then(res => {
+            swal({
+                title: 'Left room',
+                icon: 'success'
+            })
+            props.history.push('/')
+        })
+    }
+    function endRoom() {
+        axios.delete(`/rooms/end?roomID=${user.roomID}`)
+        .then(res => {
+            swal({
+                title: 'Ended room',
+                icon: 'success'
+            })
+            props.history.push('/')
+        })
+    }
+    console.log(usersDisp)
     const messageDisplay = messages.map((ele, i) => {
         if (ele.first_name === user.firstName && ele.last_name === user.lastName) {
             return (
@@ -72,8 +96,12 @@ function Chat(props) {
         <div className='chat-container'>
             <div className='join-room-btn-container'>
                 <button onClick={showLink} className='join-room-btn'>Join Room</button>
-                <button className='join-room-btn'>End Room</button>
-                <button className='join-room-btn'>Show Users</button>
+                {user.createdRoom?
+                    <button className='join-room-btn' onClick={endRoom}>End Room</button>
+                :
+                    <button className='join-room-btn' onClick={leaveRoom}>Leave Room</button>
+                }
+                <button className='join-room-btn' onClick={showOnline}>Show Users</button>
             </div>
             <ul className='dialogue'>
                 {messageDisplay}
@@ -88,4 +116,4 @@ function Chat(props) {
     )
 }
 
-export default Chat
+export default withRouter(Chat)

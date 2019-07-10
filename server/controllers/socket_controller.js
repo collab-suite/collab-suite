@@ -26,8 +26,6 @@ const SocketConnection = (server, app) => {
         })
         socket.on('leave room', async (userInfo) => {
             socket.leave(userInfo.roomID)
-            await db.remove_au({user_id: userInfo.id})
-            socket.disconnect()
         })
         socket.on('message send', async (userInfo) => {
             await db.create_message({message: userInfo.message, first_name: userInfo.firstName, last_name: userInfo.lastName, room_id: userInfo.roomID})
@@ -35,10 +33,6 @@ const SocketConnection = (server, app) => {
             io.to(userInfo.roomID).emit('message recieved', data)
         })
         socket.on('end room', async (userInfo) => {
-            socket.leave(userInfo.roomID)
-            const room = await db.check_room({room_id: userInfo.roomID})
-            await db.clear_au({room_id: room[0].ar_id})
-            await db.delete_room({room_id: userInfo.roomID})
             io.to(userInfo.roomID).emit('end room')
         })
         socket.on('disconnect', () => {

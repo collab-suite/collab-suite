@@ -43,7 +43,9 @@ app.get('/auth/logout', authCtrl.logout)
 app.post('/rooms/join', roomCtrl.joinRoom)
 app.get('/room/create', roomCtrl.createRoom)
 app.put('/auth/pass', authCtrl.changePass)
-app.put('/auth/info', )
+app.put('/auth/info', ) // Update User Info
+app.delete('/rooms/user', roomCtrl.leaveRoom) //delete user
+app.delete('/rooms/end', roomCtrl.endRoom) //end the room
 
 // Socket Endpoints
 
