@@ -18,18 +18,14 @@ function ProfilePage(props){
             axios.put('/auth/pass', {curPass, newPass, user})
             .then(res => {
                 swal({
-                    content: (
-                        <h1>Password Changed!</h1>
-                    ),
+                    title: 'Password changed',
                     icon: 'success',
                 })
                 setEdit(false)
             })
             .catch(err => {
                 swal({
-                    content: (
-                        <h1>Error occured</h1>
-                    ),
+                    title: 'Error occured',
                     icon: 'error'
                 })
             })
