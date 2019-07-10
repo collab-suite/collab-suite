@@ -1,0 +1,328 @@
+body {
+  color: #fffffc;
+  background: #4F2E08;
+  padding: 0 1em 1em;
+}
+
+.tab1 input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.tab input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.row .col {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.row .col:last-child {
+  margin-left: 1em;
+}
+
+/* Accordion styles */
+.tabs {
+  border-radius: 8px;
+  overflow: auto;
+  -webkit-box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+}
+
+.tab1 {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+}
+
+.tab1-slideHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1em;
+  background: #4F2E08;
+  font-weight: bold;
+  cursor: pointer;
+  /* Icon */
+}
+
+.tab1-slideHeader:hover {
+  background: #211303;
+}
+
+.tab1-slideHeader::after {
+  content: "\276F";
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+.tab1-sliderText {
+  max-height: 0;
+  padding: 0 1em;
+  color: #4F2E08;
+  background: white;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+.tab {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+}
+
+.tab-slideHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1em;
+  background: #4F2E08;
+  font-weight: bold;
+  cursor: pointer;
+  /* Icon */
+}
+
+.tab-slideHeader:hover {
+  background: #211303;
+}
+
+.tab-slideHeader::after {
+  content: "\276F";
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+.tab-subSlideBody {
+  display: none;
+}
+
+.tab-sliderText {
+  max-height: 0;
+  padding: 0 1em;
+  color: #4F2E08;
+  background: white;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+.tab-sliderText:hover {
+  background: #211303;
+}
+
+.tab2 {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+}
+
+.tab2-slideHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1em;
+  background: #4F2E08;
+  font-weight: bold;
+  cursor: pointer;
+  /* Icon */
+}
+
+.tab2-slideHeader:hover {
+  background: #211303;
+}
+
+.tab2-subSlideBody {
+  display: none;
+}
+
+.tab2-sliderText {
+  max-height: 0;
+  padding: 0 1em;
+  color: #4F2E08;
+  background: white;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+.tab2-sliderText:hover {
+  background: #211303;
+}
+
+.tab1 input:checked + .tab1-slideHeader {
+  background: #211303;
+}
+
+.tab1 input:checked + .tab1-slideHeader::after {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.tab1 input:checked ~ .tab1-slideBody {
+  max-height: 100vh;
+  padding: 1em;
+}
+
+.tab2 input:checked + .tab2-slideHeader {
+  background: #211303;
+}
+
+.tab2 input:checked + .tab2-slideHeader::after {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.tab2 input:checked ~ .tab2-slideBody {
+  max-height: 100vh;
+  padding: 1em;
+}
+
+.tab input:checked + .tab-slideHeader {
+  background: #211303;
+}
+
+.tab input:checked + .tab-slideHeader::after {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.tab input:checked ~ .tab-subSlideBody {
+  height: 15vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.tab input:checked ~ .tab-subActive {
+  max-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.tab input:checked ~ .tab-sliderText {
+  max-height: 100vh;
+  padding: 1em;
+}
+
+.tab input:checked ~ .tab-sliderText:hover {
+  background: #211303;
+}
+
+.row {
+  min-width: 950px;
+  min-height: 85%;
+  margin: 0px;
+  background: #f2e9d0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+}
+
+.col {
+  min-width: 100%;
+  height: 575px;
+  margin-bottom: 50px;
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+canvas {
+  width: 700px;
+  height: 500px;
+  background: white;
+  -webkit-box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+}
+
+.tabs {
+  width: 200px;
+  height: 104.5%;
+  background: #4F2E08;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: top;
+      -ms-flex-pack: top;
+          justify-content: top;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+.tab-slideBody {
+  overflow: scroll;
+  background: #4F2E08;
+  color: #fffffc;
+  width: 100%;
+  display: none;
+}
+
+.tab-active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  width: 100%;
+  height: 100%;
+}
+
+.tab-sliderText {
+  color: white;
+  margin: 15px;
+}
+/*# sourceMappingURL=canvas.css.map */
