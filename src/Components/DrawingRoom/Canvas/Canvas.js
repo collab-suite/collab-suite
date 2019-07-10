@@ -70,31 +70,39 @@ class CanvasDraw extends Component {
         })
     }
 
-    deleteElement = (i) => {
+    deleteElement = (i,source) => {
+        if (source ==='local') {
+            this.props.socket.emit('deleteObj',i,this.props.user.roomID)
+        }
         this.c.clearRect(0,0,1000,1000)
-        this.drawObj.splice(this.state.selectElement.index, 1)
+        this.drawObj.splice(i, 1)
         for (let i = 0; i < this.drawObj.length; i++) {
             this.drawObj[i].draw(this.c)
         }
-        this.setState({
+        if (this.state.accordianTop) {
+            this.setState({
+                accordianTop: {
+                    edit: false
+                }
+            })
+            this.setState({
             accordianTop: {
-                edit: false
-            }
-        })
-        this.setState({
-        accordianTop: {
-            edit: true
-            },
-        editObj: {
-            
+                edit: true
+                },
+            editObj: {
+                }
+            })
         }
-        })
     }
 
-    moveToBack = () => {
+    moveToBack = (i, element, source) => {
+        if (source ==='local') {
+            this.props.socket.emit('moveToBack',i, element, this.props.user.roomID)
+        }
         this.c.clearRect(0,0,1000,1000)
-        this.drawObj.splice(this.state.selectElement.index, 1)
-        this.drawObj.unshift(this.state.selectElement.elem)
+        this.drawObj.splice(i, 1)
+        this.drawObj.unshift(element)
+        console.log(this.drawObj)
         for (let i = 0; i < this.drawObj.length; i++) {
             this.drawObj[i].draw(this.c)
         }
@@ -109,6 +117,7 @@ class CanvasDraw extends Component {
             }        
         })
     }
+
 
     moveBackOne = () => {
         this.c.clearRect(0,0,1000,1000)
@@ -177,6 +186,24 @@ class CanvasDraw extends Component {
             }
             for (let i = 0; i < this.drawObj.length; i++) {
                 this.drawObj[i].draw(this.c)
+            }
+        })
+        this.props.socket.on('deleteObj',(index) => {
+            this.deleteElement(index, 'sockets')
+        })
+        this.props.socket.on('moveToBack',(index,element) => {
+            if (element.shape === 'circle') {
+                let obj = new CircleComplete(element)
+                this.moveToBack(index,obj, 'sockets')
+            } else if(element.shape === 'line') {
+                let obj = new LineComplete(element)
+                this.moveToBack(index,obj, 'sockets')
+            } else if(element.shape === 'rect') {
+                let obj = new RectComplete(element)
+                this.moveToBack(index,obj, 'sockets')
+            } else if(element.shape === 'freeDraw') {
+                let obj = new FreeDrawComplete(element)
+                this.moveToBack(index,obj, 'sockets')
             }
         })
     }
@@ -270,17 +297,19 @@ class CanvasDraw extends Component {
     displayElements = () => {
         let shapeList = this.drawObj.map((elem,i) => {
             return (
-                    <>
-                        <span onClick={() => this.selectDrawObj(elem, i)}><h2>{`${i + 1}: ${elem.constructor.name}`}</h2></span>
-                            <div className={(this.state.editObj[i]) ? 'subSlideBody subActive' : 'subSlideBody'}>
-                                <p value='delete' name="edit" onClick= {this.deleteElement}>Delete</p>
-                                <p value='moveToBack' name="edit" onClick= {this.moveToBack}>{`<-`}</p>
-                                <p value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</p>
-                                <p value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</p>
-                            </div>
-                    </>
-            )
-        })
+                <>
+                    <span onClick={() => this.selectDrawObj(elem, i)}>
+                        <h2>{`${i + 1}: ${elem.shape}`}</h2>
+                    </span>
+                        <div className={(this.state.editObj[i]) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                            <p value='delete' name="edit" onClick= {() => {this.deleteElement(i,'local')}}>Delete</p>
+                            <p value='moveToBack' name="edit" onClick= {() => {this.moveToBack(i,elem,'local')}}>{`<-`}</p>
+                            <p value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</p>
+                            <p value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</p>
+                        </div>
+                </>
+        )
+    })
         return(shapeList)
     }
 

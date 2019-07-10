@@ -14,8 +14,15 @@ const SocketConnection = (server, app) => {
             io.to(userInfo.roomID).emit('joined room', data, users)
         })
         socket.on('drawObj', (newObj, roomID) => {
-            console.log(newObj)
-            io.to(roomID).emit('drawObj', newObj)
+            socket.to(roomID).emit('drawObj', newObj)
+        })
+        socket.on('deleteObj', (i, roomID) => {
+            console.log('delete hit')
+            socket.to(roomID).emit('deleteObj', i)
+        })
+        socket.on('moveToBack', (i, element, roomID) => {
+            console.log('move hit')
+            socket.to(roomID).emit('moveToBack',i, element)
         })
         socket.on('leave room', async (userInfo) => {
             socket.leave(userInfo.roomID)
