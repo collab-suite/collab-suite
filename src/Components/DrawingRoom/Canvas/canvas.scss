@@ -1,0 +1,263 @@
+$wood: #4F2E08;
+$words: #fffffc;
+// General
+body {
+  color: $words;
+  background: $wood;
+  padding: 0 1em 1em;
+}
+
+.tab1 input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.tab input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+// Layout
+
+.row {
+  display:flex;
+  .col {
+    flex:1;
+    &:last-child {
+      margin-left: 1em;
+    }
+  }
+}
+
+/* Accordion styles */
+
+.tabs {
+  border-radius: 8px;
+  overflow: auto;
+  box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+}
+
+.tab1 {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  &-slideHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: $wood;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+    &:hover {
+      background: darken($wood, 10%);
+    }
+    &::after {
+      content: "\276F";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all .35s;
+    }
+  }
+  &-sliderText {
+    max-height: 0;
+    padding: 0 1em;
+    color: $wood;
+    background: white;
+    transition: all .35s;
+  }
+}
+
+.tab {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  &-slideHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: $wood;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+    &:hover {
+      background: darken($wood, 10%);
+    }
+    &::after {
+      content: "\276F";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all .35s;
+    }
+  }
+  &-subSlideBody {
+    display: none;
+  }
+  
+  &-sliderText {
+    max-height: 0;
+    padding: 0 1em;
+    color: $wood;
+    background: white;
+    transition: all .35s;
+    &:hover {
+      background: darken($wood, 10%);
+    }
+  }
+}
+
+.tab2 {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  &-slideHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: $wood;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+    &:hover {
+      background: darken($wood, 10%);
+    }
+    // &::after {
+    //   content: "\276F";
+    //   width: 1em;
+    //   height: 1em;
+    //   text-align: center;
+    //   transition: all .35s;
+    // }
+  }
+  &-subSlideBody {
+    display: none;
+  }
+  
+  &-sliderText {
+    max-height: 0;
+    padding: 0 1em;
+    color: $wood;
+    background: white;
+    transition: all .35s;
+    &:hover {
+      background: darken($wood, 10%);
+    }
+  }
+}
+
+// :checked
+
+.tab1 input:checked {
+  + .tab1-slideHeader {
+    background: darken($wood, 10%);
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+  ~ .tab1-slideBody {
+    max-height: 100vh;
+    padding: 1em;
+  }
+}
+
+.tab2 input:checked {
+  + .tab2-slideHeader {
+    background: darken($wood, 10%);
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+  ~ .tab2-slideBody {
+    max-height: 100vh;
+    padding: 1em;
+  }
+}
+
+.tab input:checked {
+  + .tab-slideHeader {
+    background: darken($wood, 10%);
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+  ~ .tab-subSlideBody {
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+  }
+  ~ .tab-subActive {
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  ~ .tab-sliderText {
+    max-height: 100vh;
+    padding: 1em;
+    &:hover {
+      background: darken($wood, 10%);
+    }
+  }
+}
+
+// Default Styling
+
+.row {
+    min-width:950px;
+    min-height: 85%;
+    margin: 0px;
+    background: #f2e9d0;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: left;
+}
+
+.col {
+    min-width: 100%;
+    height: 575px;
+    margin-bottom: 50px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+canvas {
+    width: 700px;
+    height: 500px;
+    background: white;
+    box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+}
+
+.tabs {
+    width: 200px;
+    height: 104.5%;
+    background: #4F2E08; 
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-flow: column;
+  }
+  
+  .tab-slideBody {
+    overflow: scroll;
+    background: #4F2E08;
+    color: #fffffc;
+    width: 100%;
+    display: none;
+}
+
+.tab-active {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+}
+
+.tab-sliderText {
+  color: white;
+  margin: 15px;
+}
