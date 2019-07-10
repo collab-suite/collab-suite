@@ -26,7 +26,7 @@ function LoginButtonModal(props) {
     return (
         <div className="page" onClick={props.closeModal} >
             <div className="page__demo" onClick={e => e.stopPropagation()}>
-                <img src={Logo} className='login-logo' alt='' height='100' width='120' />
+                <img src={Logo} className='login-logo' alt='' height='100' width='100' />
                 <form className='login-form' onSubmit={e => e.preventDefault()}>
                     <label className="field a-field a-field_a2 page__field">
                         <input 

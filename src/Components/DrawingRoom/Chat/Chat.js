@@ -80,7 +80,7 @@ function Chat(props) {
             </ul>
             <div className='msg-form-container'>
                 <form className='msg-form' onSubmit={e => e.preventDefault()}>
-                    <input className='msg-input' value={chatMessage} onChange={e => setChatMsg(e.target.value)} />
+                    <textarea className='msg-input' placeholder='Type your message' value={chatMessage} onChange={e => setChatMsg(e.target.value)} />
                     <button className='msg-btn' onClick={handleSendMessage}>Send</button>
                 </form>
             </div>
