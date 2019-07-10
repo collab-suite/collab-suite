@@ -1,0 +1,119 @@
+.profile-page {
+    height: 100vh;
+    width: 100vw;
+    background: #fffffc;
+    margin-left: -17px;
+    margin-right: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-module {
+    height: 500px;
+    width: 400px;
+    background: #fffffc;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+}
+
+.password-module {
+    height: 500px;
+    width: 400px;
+    background: #fffffc;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    
+}
+
+.profile-logo {
+    margin-left: 125px;
+}
+
+.profile-header {
+    color: #0A6770;
+    padding-left: 40px;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+.profile-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 150px; 
+}
+
+.profile-btn {
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    font-family: Arial;
+    color: #0fa3b1;
+    font-size: 18px;
+    background: #fffffc;
+    padding: 5px 15px 5px 15px;
+    border: solid #0fa3b1 2px;
+    text-decoration: none;
+    outline: none;
+  }
+  
+  .profile-btn:hover {
+    color: #fffffc;
+    background: #0fa3b1;
+    text-decoration: none;
+  }
+
+.profile-x-btn {
+    border: none;
+    position: absolute;
+    font-size: 1rem;
+    color: #0A6770;
+    margin-top: -235px;
+    margin-left: 140px;
+    outline: none;
+}
+
+.profile-x-btn:hover {
+    color: #0F9BA8;
+}
+
+.profile-form {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.profile-pass-btn {
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    font-family: Arial;
+    color: #0fa3b1;
+    font-size: 18px;
+    background: #fffffc;
+    padding: 5px 15px 5px 15px;
+    border: solid #0fa3b1 2px;
+    text-decoration: none;
+    outline: none;
+  }
+  
+  .profile-pass-btn:hover {
+    color: #fffffc;
+    background: #0fa3b1;
+    text-decoration: none;
+  }
+
+  .profile-pass-logo {
+    margin-left: 75px;
+}
+
+.pass-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
+}

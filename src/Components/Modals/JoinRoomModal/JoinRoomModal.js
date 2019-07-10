@@ -31,7 +31,6 @@ function JoinRoomModal(props){
                         </span>
                     </label>
                     <div className='room-btn-container'>
-                        <button className='room-btn'>Create Room</button>
                         <button className='room-btn'>Join Room</button>
                     </div>
                 </form>
