@@ -28,7 +28,7 @@ function Register(props){
         <div className='page' onClick={props.closeRegModal}>
                     <div className='register-modal' onClick={e => e.stopPropagation()}>
                         <form className='register-form' onSubmit={e => e.preventDefault()}>
-                            <img src={Logo} height='100' width='120' className='register-logo' />
+                            <img src={Logo} height='100' width='100' className='register-logo' />
                             <label className='field a-field a-field_a2 page__field'>
                                 <input
                                     className='field__input a-field__input'
