@@ -4,14 +4,22 @@ import {useSelector} from 'react-redux'
 import ChatRoom from './ChatRoom'
 import Canvas from './Canvas/Canvas'
 import './ParentDrawingRoom.css'
+import swal from '@sweetalert/with-react';
 
 function ParentDrawingRoom(props) {
     const socket = io()
     const user = useSelector(reduxState => reduxState.user)
     socket.on('end room', () => {
-        socket.emit('leave room', user.roomID)
-        window.alert('Host has closed the room')
-        props.history.push('/')
+        if (!user.createdRoom) {
+            socket.emit('leave room', user.roomID)
+            swal({
+                content: (
+                    <h1>Host has closed the room</h1>
+                ),
+                icon: 'warning'
+            })
+            props.history.push('/')
+        }
     })
     useEffect(() => {
         socket.emit('join room', user)
