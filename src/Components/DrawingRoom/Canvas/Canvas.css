@@ -1,6 +1,6 @@
 body {
   color: #fffffc;
-  background: #4F2E08;
+  /* background: #4F2E08; */
   padding: 0 1em 1em;
 }
 
@@ -274,7 +274,7 @@ body {
           justify-content: space-between;
 }
 
-canvas {
+.cool-stuff-bro {
   width: 700px;
   height: 500px;
   background: white;

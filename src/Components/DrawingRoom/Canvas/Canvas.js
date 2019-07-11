@@ -413,6 +413,7 @@ class CanvasDraw extends Component {
                             </div>  
                         </div>
                         <canvas 
+                            className='cool-stuff-bro'
                             ref={(ref) => (this.canvas = ref)}
                             style={{ background: 'white' }}
                             onMouseDown={this.onMouseDown}
