@@ -31,6 +31,7 @@ function LoginButtonModal(props) {
                     <label className="field a-field a-field_a2 page__field">
                         <input 
                             className="field__input a-field__input" 
+                            id='firstLoginInput'
                             type="email" 
                             placeholder="e.g. PeterIsAwesome@gmail.com" 
                             required={true} 
@@ -45,6 +46,7 @@ function LoginButtonModal(props) {
                         <input 
                             className="field__input a-field__input" 
                             placeholder="e.g. Keep it secret, keep it safe" 
+                            id='secondLoginInput'
                             required={true} 
                             type="password" 
                             value={password} 

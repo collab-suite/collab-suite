@@ -40,10 +40,10 @@ function NavBar(props){
                     <Styles.ButtonHolderTwo>
                         <Styles.LineBeforeTwo></Styles.LineBeforeTwo>
                         <Styles.NavButtonTwo>Profile</Styles.NavButtonTwo>
-                        <Styles.NavButtonTwo onClick={createRoom}>Create Room</Styles.NavButtonTwo>
+                        <Styles.NavButtonTwo id='createRoomBtnNav' onClick={createRoom}>Create Room</Styles.NavButtonTwo>
                         <Styles.Logo src={require('../../images/AllThinkLogo.png')} alt="dope-logo" />
                         <Styles.NavButtonTwo onClick={props.openRoomModal}>Join Room</Styles.NavButtonTwo>
-                        <Styles.NavButtonTwo onClick={logout}>Logout</Styles.NavButtonTwo>
+                        <Styles.NavButtonTwo id='logoutButtonNav' onClick={logout}>Logout</Styles.NavButtonTwo>
                         <Styles.LineAfterTwo></Styles.LineAfterTwo>
                     </Styles.ButtonHolderTwo>
                 }

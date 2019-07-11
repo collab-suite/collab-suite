@@ -97,7 +97,7 @@ function Chat(props) {
             <div className='join-room-btn-container'>
                 <button onClick={showLink} className='join-room-btn'>Join Room</button>
                 {user.createdRoom?
-                    <button className='join-room-btn' onClick={endRoom}>End Room</button>
+                    <button className='join-room-btn' id='endRoomBtnChat' onClick={endRoom}>End Room</button>
                 :
                     <button className='join-room-btn' onClick={leaveRoom}>Leave Room</button>
                 }
