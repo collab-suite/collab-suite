@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react'
-
+import './Background.css'
 
 function Background(){
     const canvasRef = useRef(null)
@@ -8,13 +8,13 @@ function Background(){
         const canvas = canvasRef.current
         const ctx = canvas.getContext('2d')
         canvas.width = window.innerWidth
-        canvas.height = 500
+        canvas.height = window.innerHeight
         drawBackground(canvas,ctx)
     })
 
 
     const colorArray = [
-        '#0fa3b1', '#13c8d8', '#08545','#08545b', '#4F2E08', '#7C490D', '#BC8443', '#BC8443','#FF9B42', '#161616'
+        '#0fa3b1', '#13c8d8', '#08545','#08545b', '#4F2E08', '#7C490D', '#BC8443', '#BC8443','#FF9B42'
       ]
     
 
@@ -117,8 +117,9 @@ function Background(){
 
     return(
         <canvas
-        style={{width: '100vw'}}
-        ref={canvasRef}
+            className='background-stuff-bro'
+            style={{width: '100vw'}}
+            ref={canvasRef}
         >
 
         </canvas>
