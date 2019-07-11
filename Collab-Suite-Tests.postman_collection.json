@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "a20c7e53-861e-45c0-8c94-584474acd6d3",
+		"name": "Collab-Suite-Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"test\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Allows a user to login using an endpoint."
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/auth/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"user"
+					]
+				},
+				"description": "Gets user details\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout Test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Lets a user logout"
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"postman@postman.com\",\n\t\"first_name\": \"postman\",\n\t\"last_name\": \"test\",\n\t\"password\": \"superpassword\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Allows a user to register for Collab Suite\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Room",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/room/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"room",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Join Room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userID\": 5,\n\t\"roomID\": \"testing-room\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/rooms/join",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"rooms",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Pass",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"curPass\": \"test\",\n\t\"newPass\": \"postmantest\",\n\t\"user\": {\n\t\t\"email\": \"postman@postman.com\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/pass",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"pass"
+					]
+				},
+				"description": "Change a users password"
+			},
+			"response": []
+		},
+		{
+			"name": "Leave Room",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/rooms/user?email=postman@post.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"rooms",
+						"user"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "postman@post.com"
+						}
+					]
+				},
+				"description": "user leaves a room"
+			},
+			"response": []
+		},
+		{
+			"name": "End Room",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/rooms/end?roomID=testing-room",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"rooms",
+						"end"
+					],
+					"query": [
+						{
+							"key": "roomID",
+							"value": "testing-room"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Info",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"postmantest@postman.com\",\n\t\"firstName\": \"post\",\n\t\"lastName\": \"man\",\n\t\"user\": {\n\t\t\"id\": 6\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"info"
+					]
+				},
+				"description": "Update user info"
+			},
+			"response": []
+		}
+	]
+}
