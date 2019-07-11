@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import axios from 'axios'
 import {setName} from '../../redux/reducers/userReducer'
 import swal from '@sweetalert/with-react'
+import './UpdateProfile.css'
 
 function UpdateProfile(props){
     const user = useSelector(reduxState => reduxState.user)
@@ -37,31 +38,36 @@ function UpdateProfile(props){
     },[])
     return(
         <div>
-            <form onSubmit={e => updateInfo(e)}>
-                <input
-                    name='first name'
-                    placeholder='first name'
-                    type='text' 
-                    value={firstName}
-                    onChange={e => setFN(e.target.value)}
-                />
-                <input
-                    name='last name'
-                    placeholder='last name'
-                    type='text' 
-                    value={lastName}
-                    onChange={e => setLN(e.target.value)}
-                />
-                <input
-                    name='email'
-                    placeholder='email'
-                    type='email' 
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <button type='submit'>Update</button>
-                <button type='reset' onClick={e => resetInfo()}>x</button>
-            </form>
+            <div className='update-profile-page'>
+                <form className='profile-form' onSubmit={e => updateInfo(e)}>
+                    <input
+                        className='update-profile-input'
+                        name='first name'
+                        placeholder='first name'
+                        type='text' 
+                        value={firstName}
+                        onChange={e => setFN(e.target.value)}
+                    />
+                    <input
+                        className='update-profile-input'
+                        name='last name'
+                        placeholder='last name'
+                        type='text' 
+                        value={lastName}
+                        onChange={e => setLN(e.target.value)}
+                    />
+                    <input
+                        className='update-profile-input'
+                        name='email'
+                        placeholder='email'
+                        type='email' 
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                    <button className='update-profile-btn' type='submit'>Update</button>
+                    <button className='update-x-btn' type='reset' onClick={e => resetInfo()}>x</button>
+                </form>
+            </div>
         </div>
     )
 }
