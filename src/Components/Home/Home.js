@@ -4,6 +4,7 @@ import '../Modals/LoginModal/LoginModal.css'
 import Login from '../Modals/LoginModal/LoginModal'
 import Reg from '../Modals/RegisterModal/RegisterModal'
 import JoinRoom from '../Modals/JoinRoomModal/JoinRoomModal'
+import Background from '../Background/Background'
 
 function Home() {
     const [modal, setModal] = useState(false)
@@ -47,6 +48,10 @@ function Home() {
             :
             null
         }
+
+        <div style={{width: '100vw', height: '70vh'}}>
+            <Background />
+        </div>
         </>
     )
 }
