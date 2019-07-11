@@ -47,9 +47,9 @@ class CanvasDraw extends Component {
                 this.setState({ tools: {...this.state.tools,lineWidth: 10} })
             }
         }
-        this.setState({
-            shapeSize: false
-        })
+        // this.setState({
+        //     shapeSize: false
+        // })
     }
 
 
@@ -301,11 +301,11 @@ class CanvasDraw extends Component {
                     <span onClick={() => this.selectDrawObj(elem, i)}>
                         <h2>{`${i + 1}: ${elem.shape}`}</h2>
                     </span>
-                        <div className={(this.state.editObj[i]) ? 'subSlideBody subActive' : 'subSlideBody'}>
+                        <div className={(this.state.editObj[i]) ?  'tab-slideBody tab-active' : 'tab-slideBody'}>
                             <p value='delete' name="edit" onClick= {() => {this.deleteElement(i,'local')}}>Delete</p>
                             <p value='moveToBack' name="edit" onClick= {() => {this.moveToBack(i,elem,'local')}}>{`<-`}</p>
-                            <p value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</p>
-                            <p value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</p>
+                            {/* <p value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</p>
+                            <p value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</p> */}
                         </div>
                 </>
         )
