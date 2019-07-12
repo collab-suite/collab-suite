@@ -92,6 +92,7 @@ function Chat(props) {
             )
         }
     })
+    console.log(messages)
     return (
         <div className='chat-container'>
             <div className='join-room-btn-container'>
