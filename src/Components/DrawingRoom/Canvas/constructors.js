@@ -58,7 +58,7 @@ export const Rect = function(x,y,tools) {
         c.beginPath()
         c.lineWidth = this.lineWidth
         c.fillStyle = 'white'
-        c.strokeStyle = 'black'
+        c.strokeStyle = 'pink'
         c.strokeRect(this.x,this.y,this.width,this.height)
         c.fillRect(this.x,this.y,this.width,this.height)
     }
@@ -90,7 +90,7 @@ export const Circle = function(x,y,radius,tools) {
         c.beginPath()
         c.lineWidth = this.lineWidth
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-        c.strokeStyle = 'black'
+        c.strokeStyle = 'pink'
         c.fillStyle = 'white'
         c.stroke()
         c.fill()
@@ -131,9 +131,16 @@ export const FreeDraw = function(x,y,tools) {
     }
 
     this.drawSelected = (c) => {
+        c.beginPath()
+            c.strokeStyle = 'pink'
+            c.lineJoin = 'round'
+            c.lineCap = 'round'
+            c.lineWidth = this.lineWidth
         for (let i = 0; i < this.pointsArray.length; i++){
-            this.draw(this.pointsArray[i].x,this.pointsArray[i].y,this.pointsArray[i].offsetX,this.pointsArray[i].offsetY)
-        }           
+            c.moveTo(this.pointsArray[i].x,this.pointsArray[i].y)
+            c.lineTo(this.pointsArray[i].offsetX, this.pointsArray[i].offsetY)
+        }        
+        c.stroke()
     }
     this.update = function(x,y) {
         this.offsetX = x
@@ -201,7 +208,7 @@ export const RectComplete = function(newObj) {
         c.beginPath()
         c.lineWidth = this.lineWidth
         c.fillStyle = 'white'
-        c.strokeStyle = 'black'
+        c.strokeStyle = 'pink'
         c.strokeRect(this.x,this.y,this.width,this.height)
         c.fillRect(this.x,this.y,this.width,this.height)
     }
@@ -270,10 +277,18 @@ export const FreeDrawComplete = function(newObj) {
     }
 
     this.drawSelected = (c) => {
+        c.beginPath()
+            c.strokeStyle = 'pink'
+            c.lineJoin = 'round'
+            c.lineCap = 'round'
+            c.lineWidth = this.lineWidth
         for (let i = 0; i < this.pointsArray.length; i++){
-            this.draw(this.pointsArray[i].x,this.pointsArray[i].y,this.pointsArray[i].offsetX,this.pointsArray[i].offsetY)
-        }           
+            c.moveTo(this.pointsArray[i].x,this.pointsArray[i].y)
+            c.lineTo(this.pointsArray[i].offsetX, this.pointsArray[i].offsetY)
+        }        
+        c.stroke()
     }
+
     this.update = function(x,y) {
         this.offsetX = x
         this.offsetY = y        

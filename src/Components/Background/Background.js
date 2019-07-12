@@ -1,18 +1,39 @@
 import React, {useEffect, useRef} from 'react'
 import './Background.css'
 
-function Background(){
+function Background(props){
     const canvasRef = useRef(null)
-
+    
     useEffect(() => {
         const canvas = canvasRef.current
         const ctx = canvas.getContext('2d')
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
-        drawBackground(canvas,ctx)
-    })
+        if (!props.modal && !props.regModal || !props.visited) {
+            // text(ctx)
+            drawBackground()
+            setInterval(() => drawBackground(), 7000)
+            
+        }
+    },[])
 
 
+    function text (ctx) {
+        // var my_gradient=ctx.createLinearGradient(0, 0, 1800, 0);
+        // my_gradient.addColorStop(.001, "#FF9B42");
+        // my_gradient.addColorStop(0.2,'#13c8d8' );
+        // my_gradient.addColorStop(.5, "#08545b")
+        // my_gradient.addColorStop(0.8, '#13c8d8');
+        // my_gradient.addColorStop(.99, "#FF9B42");
+        // ctx.fillStyle = my_gradient
+        // ctx.fillRect(0,0,10000,10000)
+        ctx.font = '300px sans-serif'
+        ctx.fillStyle = '#0fa3b1'
+        ctx.strokeStyle = '#BC8443'
+        ctx.lineWidth=8
+        ctx.strokeText('ALL THINK',60, 400)
+        ctx.fillText('ALL THINK',60, 400)
+    }
     const colorArray = [
         '#0fa3b1', '#13c8d8', '#08545','#08545b', '#4F2E08', '#7C490D', '#BC8443', '#BC8443','#FF9B42'
       ]
@@ -77,7 +98,11 @@ function Background(){
           }
         }
     
-    function drawBackground(canvas,ctx) {
+    function drawBackground() {
+        const canvas = canvasRef.current
+        const ctx = canvas.getContext('2d')
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
         let drawObj = []
         console.log('hitting drawbackground function')
         if (drawObj.length < 1) {
@@ -108,15 +133,22 @@ function Background(){
                 drawObj.push(test)
             }
         }
-        console.log(drawObj)
         for (let i = 0; i < drawObj.length; i++) {
             drawObj[i].draw(ctx)
         }
+        ctx.font = '325px sans-serif'
+        ctx.fillStyle = '#0fa3b1'
+        ctx.strokeStyle = 'black'
+        ctx.lineWidth=8
+        ctx.strokeText('ALL THINK',60, 400)
+        ctx.fillText('ALL THINK',60, 400)
+        props.hasVisited()
     }
 
 
     return(
         <canvas
+            onClick={() => drawBackground()}
             className='background-stuff-bro'
             style={{width: '100vw'}}
             ref={canvasRef}

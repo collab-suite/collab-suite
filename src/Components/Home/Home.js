@@ -10,6 +10,11 @@ function Home() {
     const [modal, setModal] = useState(false)
     const [regModal, setRegModal] = useState(false)
     const [roomModal, setRoomModal] = useState(false)
+    const [visited, setVisited] = useState(false)
+
+    function hasVisited() {
+        setVisited(true)
+    }
     function openRoomModal() {
         setRoomModal(true)
     }
@@ -22,6 +27,7 @@ function Home() {
 
     function closeModal() {
         setModal(false)
+        setVisited(true)
     }
 
     function openRegModal() {
@@ -29,6 +35,7 @@ function Home() {
     }
     function closeRegModal() {
         setRegModal(false)
+        setVisited(true)
     }
     return (
         <>
@@ -50,7 +57,11 @@ function Home() {
         }
 
         <div style={{width: '100vw', height: '70vh'}}>
-            <Background />
+            <Background 
+              modal={modal}
+              regModal={regModal}
+              visited={visited}
+              hasVisited={hasVisited}/>
         </div>
         </>
     )
