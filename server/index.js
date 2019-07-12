@@ -14,6 +14,7 @@ const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env
 // Top Level Middleware
 
 app.use(express.json())
+app.use( express.static( `${__dirname}/../build` ) )
 app.use(
     session({
         secret: SESSION_SECRET,
