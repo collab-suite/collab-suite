@@ -12,7 +12,6 @@ function Background(props){
         if (!props.modal && !props.regModal || !props.visited) {
             // text(ctx)
             drawBackground()
-            setInterval(() => drawBackground(), 7000)
             
         }
     },[])
