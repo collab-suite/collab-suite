@@ -7,7 +7,9 @@ const SocketConnection = (server, app) => {
         console.log('a user has connected')
         socket.on('join room', async (userInfo) => {
             socket.join(userInfo.roomID)
+            console.log(userInfo)
             const room = await db.check_room({room_id: userInfo.roomID})
+            console.log(room)
             await db.create_au({user_id: userInfo.id, room_id: room[0].ar_id})
             const users = await db.get_au({room_id: room[0].ar_id})
             const data = await db.select_messages({room_id: userInfo.roomID})
