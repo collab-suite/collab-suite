@@ -41,8 +41,9 @@ body {
 
 .tab1 {
   width: 100%;
+  height: 100%;
   color: white;
-  overflow: hidden;
+  overflow: scroll;
   &-slideHeader {
     display: flex;
     justify-content: space-between;
@@ -74,7 +75,6 @@ body {
 .tab {
   width: 100%;
   color: white;
-  overflow: hidden;
   &-slideHeader {
     display: flex;
     justify-content: space-between;
@@ -125,13 +125,7 @@ body {
     &:hover {
       background: darken($wood, 10%);
     }
-    // &::after {
-    //   content: "\276F";
-    //   width: 1em;
-    //   height: 1em;
-    //   text-align: center;
-    //   transition: all .35s;
-    // }
+   
   }
   &-subSlideBody {
     display: none;
@@ -185,7 +179,8 @@ body {
     }
   }
   ~ .tab-subSlideBody {
-    height: 15vh;
+    // height: 15vh;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
   }
@@ -243,7 +238,6 @@ canvas {
   }
   
   .tab-slideBody {
-    overflow: scroll;
     background: #4F2E08;
     color: #fffffc;
     width: 100%;
@@ -253,8 +247,8 @@ canvas {
 .tab-active {
     display: flex;
     flex-flow: column;
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
 }
 
 .tab-sliderText {

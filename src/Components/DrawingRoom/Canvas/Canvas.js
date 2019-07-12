@@ -289,7 +289,7 @@ class CanvasDraw extends Component {
                 index:index
             },
             editObj: {
-                [index]:true
+                [index]:!this.state.editObj[index]
             },
         })
     }
@@ -301,9 +301,9 @@ class CanvasDraw extends Component {
                     <span onClick={() => this.selectDrawObj(elem, i)}>
                         <h2>{`${i + 1}: ${elem.shape}`}</h2>
                     </span>
-                        <div className={(this.state.editObj[i]) ?  'tab-slideBody tab-active' : 'tab-slideBody'}>
-                            <p value='delete' name="edit" onClick= {() => {this.deleteElement(i,'local')}}>Delete</p>
-                            <p value='moveToBack' name="edit" onClick= {() => {this.moveToBack(i,elem,'local')}}>{`<-`}</p>
+                        <div className={(this.state.editObj[i]) ?   'tab-slideBody tab-active' : 'tab-slideBody'}>
+                            <p className='tab-sliderText' value='delete' name="edit" onClick= {() => {this.deleteElement(i,'local')}}>Delete</p>
+                            <p className='tab-sliderText' value='moveToBack' name="edit" onClick= {() => {this.moveToBack(i,elem,'local')}}>{`Move To Back`}</p>
                             {/* <p value='moveUpOne' name="edit" onClick= {this.moveUpOne}>Move Up One</p>
                             <p value='moveBackOne' name="edit" onClick= {this.moveBackOne}>Move Back One</p> */}
                         </div>
@@ -317,7 +317,6 @@ class CanvasDraw extends Component {
         // for (let i = 0; i < this.state.according.length)
         if (e.target.attributes.name.value in this.state.accordian) {
             if (e.target.attributes.name.value !== 'fillColor' && e.target.attributes.name.value !=='lineColor') {
-                console.log('hitting accordion and not fill color')
                 this.updateShape(e.target.attributes.name.value)
             }
             this.setState({
@@ -326,18 +325,20 @@ class CanvasDraw extends Component {
                 }
             })
         } else {
-            console.log('hitting top accordions')
             this.setState({
                 accordianTop:{ ...this.state.initialAccordianTop,
                      [e.target.attributes.name.value]: !this.state.accordianTop[e.target.attributes.name.value]
                 }
             })
+            for (let i = 0; i < this.drawObj.length; i++) {
+                this.drawObj[i].draw(this.c)
+            }
         }
     }
 
 
     render() {
-        console.log(this.props)
+        console.log(this.state.editObj)
         return(
            <div className="row">
                {/* pageContainer */}
@@ -403,14 +404,14 @@ class CanvasDraw extends Component {
                                     </div>
                                 </div>
                             </div>
-                            </div>
-                            <div className='tab1'>
+                            {/* <div className='tab1'> */}
                                 <input type='checkbox' id='chck7' />
                                 <label className='tab1-slideHeader' for='chck7' name="edit" onClick={this.makeActive}>Edit</label>
                                 <div className={(this.state.accordianTop.edit) ? 'tab-slideBody tab-active' : 'tab-slideBody'}>
                                     {this.displayElements()}
                                 </div>
-                            </div>  
+                            {/* </div>   */}
+                            </div>
                         </div>
                         <canvas 
                             className='cool-stuff-bro'
