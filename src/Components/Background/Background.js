@@ -143,6 +143,7 @@ function Background(props){
     //     ctx.fillText('ALL THINK',60, 400)
     //     props.hasVisited()
     // }
+    }
 
 
     return(
