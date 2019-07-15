@@ -27,7 +27,6 @@ function Home() {
 
     function closeModal() {
         setModal(false)
-        setVisited(true)
     }
 
     function openRegModal() {
@@ -35,7 +34,6 @@ function Home() {
     }
     function closeRegModal() {
         setRegModal(false)
-        setVisited(true)
     }
     return (
         <>
