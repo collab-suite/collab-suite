@@ -135,14 +135,14 @@ function Background(props){
         for (let i = 0; i < drawObj.length; i++) {
             drawObj[i].draw(ctx)
         }
-        ctx.font = '325px sans-serif'
-        ctx.fillStyle = '#0fa3b1'
-        ctx.strokeStyle = 'black'
-        ctx.lineWidth=8
-        ctx.strokeText('ALL THINK',60, 400)
-        ctx.fillText('ALL THINK',60, 400)
-        props.hasVisited()
-    }
+    //     ctx.font = '325px sans-serif'
+    //     ctx.fillStyle = '#0fa3b1'
+    //     ctx.strokeStyle = 'black'
+    //     ctx.lineWidth=8
+    //     ctx.strokeText('ALL THINK',60, 400)
+    //     ctx.fillText('ALL THINK',60, 400)
+    //     props.hasVisited()
+    // }
 
 
     return(

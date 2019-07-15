@@ -1,10 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'enzyme';
 import Background from './background.js';
-describe('Background', () => {
-  it('should render correctly in "debug" mode', () => {
-    const component = shallow(<Background debug />);
+describe('background', () => {
+
+  let container
   
-    expect(component).toMatchSnapshot();
+beforeEach(() => {
+    container = render(<Background />)
+})
+
+  it('should render correctly in "debug" mode', () => {
+  
+    expect(container.length).toMatchSnapshot();
   });
+
+  it('should render correctly in "debug" mode', () => {
+    expect(container.length).toEqual(1)
+  });
+
 });

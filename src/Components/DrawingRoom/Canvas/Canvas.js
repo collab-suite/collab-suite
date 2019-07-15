@@ -348,7 +348,7 @@ class CanvasDraw extends Component {
                     {/* elementList */}
                         <div className='tab1'>
                         <input type='checkbox' id='chck' />
-                        <label className='tab1-slideHeader' for='chck' name="shape" onClick={this.makeActive}>Tools</label>
+                        <label className='tab1-slideHeader' htmlFor='chck' name="shape" onClick={this.makeActive}>Tools</label>
                             <div className={(this.state.accordianTop.shape) ? 'tab-slideBody tab-active' : 'tab-slideBody'}>
                                 <div className='tab'>
                                     <input type='checkbox' id='chck1' />
